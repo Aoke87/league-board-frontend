@@ -6,14 +6,11 @@ import { SummonerDto } from "./interfaces/summoner.dto";
 import AppHeader from "./components/AppHeader.vue";
 import AppFooter from './components/AppFooter.vue';
 
-const summoners = ref<SummonerDto[]>([]);
-
 const isAssetLoadingComplete = computed(() => { return store.getters.getIsAssetLoadingComplete });
 
-(async function fetchAllSummoners() {
-    const response = await fetch('http://localhost:3000/summoner/all');
-    summoners.value = await response.json();
-})();
+const summoners = computed(() => {
+    return store.getters.getSummoners;
+})
 </script>
 
 <template>
