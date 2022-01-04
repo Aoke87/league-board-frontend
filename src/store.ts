@@ -3,7 +3,7 @@ import { createStore } from 'vuex';
 import './index.css'
 
 export const store = createStore({
-    state () {
+    state() {
         return {
             champions: {},
             profileIcons: {},
@@ -11,7 +11,8 @@ export const store = createStore({
             initialMatches: [],
             isAssetLoadingComplete: false,
             summoners: [],
-            items: {}
+            items: {},
+            backendUrl: 'http://localhost:3030/'
         }
     },
     getters: {
@@ -24,7 +25,7 @@ export const store = createStore({
         getProfileIcon: (state: any) => (profileiconId: number) => {
             return state.profileIcons[profileiconId]
         },
-        getInitialMatches: (state: any)  => {
+        getInitialMatches: (state: any) => {
             return state.initialMatches
         },
         getIsAssetLoadingComplete: (state: any) => {
@@ -69,6 +70,9 @@ export const store = createStore({
         },
         setIsAssetLoadingComplete: (state: any, payload: boolean) => {
             state.isAssetLoadingComplete = payload;
+        },
+        setBackendUrl: (state: any, payload: boolean) => {
+            state.backendUrl = payload;
         }
     }
 })

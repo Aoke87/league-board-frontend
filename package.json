@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "dayjs": "^1.10.7",
+    "dotenv": "^10.0.0",
     "vue": "^3.2.25",
     "vue-eslint-parser": "^8.0.1",
     "vuex": "^4.0.2"
