@@ -20,6 +20,7 @@ import { store } from "./store";
     store.commit('setItems', items.data);
     store.commit('setIsAssetLoadingComplete', true);
     console.log(import.meta.env.VITE_BACKEND_URL);
+    console.log('Hello World!');
 })();
 
 const app = createApp(App);
