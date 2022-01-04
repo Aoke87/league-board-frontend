@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import GridLayout from './components/GridLayout.vue';
 import { computed, ref } from "vue";
-import { MatchDto } from "./interfaces/matchV5.dto";
 import { store } from "./store";
 import { SummonerDto } from "./interfaces/summoner.dto";
 import AppHeader from "./components/AppHeader.vue";
 import AppFooter from './components/AppFooter.vue';
 
-const matches = ref<MatchDto[]>([]);
 const summoners = ref<SummonerDto[]>([]);
 
 const isAssetLoadingComplete = computed(() => { return store.getters.getIsAssetLoadingComplete });
@@ -20,8 +18,8 @@ const isAssetLoadingComplete = computed(() => { return store.getters.getIsAssetL
 
 <template>
     <AppHeader class="top"></AppHeader>
-    <div v-if="!isAssetLoadingComplete">loading ...</div>
-    <GridLayout v-if="isAssetLoadingComplete" :summoners="summoners" />
+    <div style="min-height: 1000px;" v-if="!isAssetLoadingComplete">loading ...</div>
+    <GridLayout v-else :summoners="summoners" />
     <AppFooter />
 </template>
 
@@ -34,3 +32,4 @@ const isAssetLoadingComplete = computed(() => { return store.getters.getIsAssetL
     color: #2c3e50;
 }
 </style>
+                                   

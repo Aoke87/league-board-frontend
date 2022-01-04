@@ -1,4 +1,4 @@
-import { createApp  } from 'vue';
+import { createApp } from 'vue';
 import App from './App.vue'
 import './index.css'
 import { store } from "./store";
@@ -19,6 +19,7 @@ import { store } from "./store";
     store.commit('setSummoners', summoners);
     store.commit('setItems', items.data);
     store.commit('setIsAssetLoadingComplete', true);
+    console.log(import.meta.env.VITE_BACKEND_URL);
 })();
 
 const app = createApp(App);
