@@ -118,59 +118,6 @@
                                         </div>
                                     </a>
                                 </div>
-                                <div class="relative w-36">
-                                    <img
-                                        id="auto"
-                                        class="dark:hidden absolute inset-0 m-auto ml-3 text-gray-700 dark:text-gray-50 icon icon-tabler icon-tabler-device-laptop"
-                                        src="../svgs/svg3.svg"
-                                        alt="auto"
-                                    />
-                                    <img
-                                        id="auto"
-                                        class="dark:block hidden absolute inset-0 m-auto ml-3 text-gray-700 dark:text-gray-50 icon icon-tabler icon-tabler-device-laptop"
-                                        src="../svgs/svg3dasvg5dark.svg"
-                                        alt="auto"
-                                    />
-                                    <img
-                                        id="light"
-                                        class="dark:hidden hidden absolute inset-0 m-auto ml-3 text-gray-700 dark:text-gray-50 icon icon-tabler icon-tabler-brightness-up"
-                                        src="../svgs/svg4.svg"
-                                        alt="light"
-                                    />
-                                    <img
-                                        id="light"
-                                        class="dark:block hidden hidden absolute inset-0 m-auto ml-3 text-gray-700 dark:text-gray-50 icon icon-tabler icon-tabler-brightness-up"
-                                        src="../svgs/svg4dasvg5dark.svg"
-                                        alt="light"
-                                    />
-                                    <img
-                                        id="dark"
-                                        class="dark:hidden hidden absolute inset-0 m-auto ml-3 text-gray-700 dark:text-gray-50 icon icon-tabler icon-tabler-moon"
-                                        src="../svgs/svg5.svg"
-                                        alt="dark"
-                                    />
-                                    <img
-                                        id="dark"
-                                        class="dark:block hidden hidden absolute inset-0 m-auto ml-3 text-gray-700 dark:text-gray-50 icon icon-tabler icon-tabler-moon"
-                                        src="../svgs/svg5dark.svg"
-                                        alt="dark"
-                                    />
-
-                                    <img
-                                        src="https://tuk-cdn.s3.amazonaws.com/can-uploader/footer_1-svg6.svg"
-                                        class="pointer-events-none absolute inset-0 m-auto mr-3 text-gray-700 dark:text-gray-50 icon icon-tabler icon-tabler-chevron-down"
-                                        alt="dropdown"
-                                    />
-                                    <select
-                                        aria-label="select box"
-                                        onchange="switchMode(event)"
-                                        class="w-full focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 focus:outline-none pl-10 py-2 appearance-none flex items-center h-12 border rounded border-gray-700 dark:border-gray-50 text-sm leading-5 dark:bg-gray-900 dark:text-gray-50"
-                                    >
-                                        <option selected value="auto">Auto</option>
-                                        <option value="light">Light</option>
-                                        <option value="dark">Dark</option>
-                                    </select>
-                                </div>
                             </div>
                         </div>
                     </div>

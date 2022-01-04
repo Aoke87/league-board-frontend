@@ -165,7 +165,6 @@ function getZindex(index: number) {
             <img
                 class="rounded-full leading-none w-6 h-6 mr-1"
                 :style="getProfileIconSprite(getProfileIcon(friendInMatch[0].profileIcon))"
-                alt
             />
             <div class="mb-2">
                 <span class="leading-none">{{ friendInMatch[0].summonerName }}</span>
@@ -184,7 +183,6 @@ function getZindex(index: number) {
                     getProfileIconSprite(getProfileIcon(friend.profileIcon)),
                     getZindex(index)
                 ]"
-                alt
             />
             <div class="ml-1">
                 {{ friendInMatch[0].summonerName }}, {{ friendInMatch[1].summonerName }}
