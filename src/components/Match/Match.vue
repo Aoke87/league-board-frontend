@@ -138,7 +138,7 @@ function getZindex(index: number) {
 
 function getImageSource(profileIcon: any) {
     console.log(profileIcon);
-    return 'image/profileIcon/' + profileIcon + '.png'
+    return 'image/profileicon/' + profileIcon + '.png'
 }
 </script>
 
@@ -162,7 +162,10 @@ function getImageSource(profileIcon: any) {
                 :key="index"
                 :class="{ '-ml-3': index !== 0 }"
                 class="rounded-full leading-none w-6 h-6 z-10"
-                :src="getImageSource(friendInMatch[0].profileIcon)"
+                :src="getImageSource(friend.profileIcon)"
+                :style="[
+                    getZindex(index)
+                ]"
             />
             <div class="ml-1">
                 <span>{{ friendInMatch[0].summonerName }}, {{ friendInMatch[1].summonerName }}</span>
