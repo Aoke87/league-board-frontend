@@ -6,7 +6,6 @@ export const store = createStore({
     state() {
         return {
             champions: {},
-            profileIcons: {},
             summonerSpells: {},
             initialMatches: [],
             isAssetLoadingComplete: false,
@@ -21,9 +20,6 @@ export const store = createStore({
         },
         getSummoners: (state: any) => {
             return state.summoners;
-        },
-        getProfileIcon: (state: any) => (profileiconId: number) => {
-            return state.profileIcons[profileiconId]
         },
         getInitialMatches: (state: any) => {
             return state.initialMatches
@@ -55,9 +51,6 @@ export const store = createStore({
         },
         setSummoners: (state: any, summoners: any) => {
             state.summoners = summoners;
-        },
-        setProfileIcons: (state: any, profileIcons: any) => {
-            state.profileIcons = profileIcons;
         },
         setSummonerSpells: (state: any, summonerSpells: any) => {
             state.summonerSpells = summonerSpells

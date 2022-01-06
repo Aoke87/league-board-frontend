@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { computed } from 'vue';
 import { MatchDto, ParticipantDto } from "../../interfaces/matchV5.dto";
 import { store } from "../../store";
-import { ProfileIcon } from "../../interfaces/assets";
 import dayjs from 'dayjs'
 import 'dayjs/locale/de';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -40,11 +38,6 @@ const props = defineProps<{
     friendInMatch: ParticipantDto[],
 }>()
 
-function championImage(profileIconId: number) {
-    const profileIcon = store.getters.getProfileIcon(profileIconId)
-    console.log(profileIcon);
-    return `~/assets/img/profileicon/${profileIconId}.png`
-}
 
 function isPlayerMatchResultWin(): boolean {
     return props.friendInMatch[0]?.win;
@@ -54,21 +47,6 @@ function colorizeBackground() {
     const isWin = props.friendInMatch[0]?.win;
     if (isWin) { return { 'background-color': '#a3cfec', 'border-color': '#99b9cf' }; }
     if (!isWin) { return { 'background-color': '#e2b6b3', 'border-color': '#CEA7A6' }; }
-}
-
-function getProfileIcon(profileIconId: number) {
-    return store.getters.getProfileIcon(profileIconId)
-}
-
-function getProfileIconSprite(image: ProfileIcon) {
-    const modifier = 0.65;
-    const backgroundOriginalWidth = 480;
-    return {
-        width: (image.image.w * modifier) + 'px',
-        height: (image.image.h * modifier) + 'px',
-        background: `url(sprite/profileicon0.png) -${image.image.x * modifier}px -${image.image.y * modifier}px`,
-        'background-size': `${backgroundOriginalWidth * modifier}px`,
-    };
 }
 
 function secondsToTime(seconds: number) {
@@ -157,6 +135,11 @@ function getZindex(index: number) {
         'zIndex': 5 - index
     }
 }
+
+function getImageSource(profileIcon: any) {
+    console.log(profileIcon);
+    return 'image/profileIcon/' + profileIcon + '.png'
+}
 </script>
 
 <template>
@@ -164,7 +147,7 @@ function getZindex(index: number) {
         <template v-if="friendInMatch.length === 1">
             <img
                 class="rounded-full leading-none w-6 h-6 mr-1"
-                :style="getProfileIconSprite(getProfileIcon(friendInMatch[0].profileIcon))"
+                :src="getImageSource(friendInMatch[0].profileIcon)"
             />
             <div class="mb-2">
                 <span class="leading-none">{{ friendInMatch[0].summonerName }}</span>
@@ -179,10 +162,7 @@ function getZindex(index: number) {
                 :key="index"
                 :class="{ '-ml-3': index !== 0 }"
                 class="rounded-full leading-none w-6 h-6 z-10"
-                :style="[
-                    getProfileIconSprite(getProfileIcon(friend.profileIcon)),
-                    getZindex(index)
-                ]"
+                :src="getImageSource(friendInMatch[0].profileIcon)"
             />
             <div class="ml-1">
                 <span>{{ friendInMatch[0].summonerName }}, {{ friendInMatch[1].summonerName }}</span>
