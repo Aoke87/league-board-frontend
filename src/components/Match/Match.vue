@@ -173,7 +173,7 @@ function getZindex(index: number) {
                 >Level {{ friendInMatch[0].summonerLevel }}</span>
             </div>
         </template>
-        <div v-if="friendInMatch.length > 1" class="flex mb-2">
+        <div v-if="friendInMatch.length > 1" class="flex items-center mb-2">
             <img
                 v-for="(friend, index) in friendInMatch"
                 :key="index"
@@ -185,10 +185,8 @@ function getZindex(index: number) {
                 ]"
             />
             <div class="ml-1">
-                {{ friendInMatch[0].summonerName }}, {{ friendInMatch[1].summonerName }}
-                <span
-                    v-if="friendInMatch.length > 2"
-                >+ {{ friendInMatch.length - 2 }} more</span>
+                <span>{{ friendInMatch[0].summonerName }}, {{ friendInMatch[1].summonerName }}</span>
+                <span v-if="friendInMatch.length > 2">+ {{ friendInMatch.length - 2 }} more</span>
             </div>
         </div>
     </div>

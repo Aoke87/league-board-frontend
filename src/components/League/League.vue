@@ -11,7 +11,7 @@ const flexQueue: SummonerLeagueDto[] = [];
 const rankProjection: { [key: string]: number } = {
     'I': 1,
     'II': 2,
-    'III': 2,
+    'III': 3,
     'IV': 4
 };
 const tierProjection: { [key: string]: number } = {
@@ -72,7 +72,7 @@ function compareRanks(a: SummonerLeagueDto, b: SummonerLeagueDto): number {
             <tbody>
                 <tr v-for="(leagueEntry, index) in soloQueue" :key="index" class="border">
                     <td class="px-1">
-                        <span>{{ index }}</span>
+                        <span>{{ index + 1 }}</span>
                     </td>
                     <td class="flex items-center">
                         <img
@@ -107,7 +107,7 @@ function compareRanks(a: SummonerLeagueDto, b: SummonerLeagueDto): number {
             <tbody>
                 <tr v-for="(leagueEntry, index) in flexQueue" :key="index" class="border">
                     <td class="px-1">
-                        <span>{{ index }}</span>
+                        <span>{{ index + 1 }}</span>
                     </td>
                     <td class="flex items-center">
                         <img
