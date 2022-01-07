@@ -22,7 +22,7 @@ defineProps<{
             </aside>
             <main
                 role="main"
-                class="w-full sm:w-2/3 md:w-2/3 xl:w-1/2 pt-1 px-2 flex flex-col items-start"
+                class="w-full sm:w-2/3 md:w-2/3 xl:w-1/2 pt-1 px-2 flex flex-col items-start overflow-scroll"
             >
                 <MatchList :summoners="summoners" />
             </main>

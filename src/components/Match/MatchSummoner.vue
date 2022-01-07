@@ -1,4 +1,5 @@
-<script setup lang="ts">
+<script setup lang="ts">import { isMobile } from '../../services/utilsService';
+
 
 const props = defineProps<{
     champion: any,
@@ -11,6 +12,7 @@ const props = defineProps<{
         w: number,
         h: number,
     }>,
+    isMobile?: boolean;
 }>()
 
 function championStyle(image: {
@@ -23,7 +25,7 @@ function championStyle(image: {
     h: number,
 }) {
     if (!image) { return }
-    const modifier = 1;
+    const modifier = props.isMobile ? .8 : 1;
     const backgroundOriginalWidth = 480;
     return {
         width: (image.w * modifier) + 'px',
@@ -42,7 +44,7 @@ function summonerSpellStyles(image: {
     w: number,
     h: number,
 }) {
-    const modifier = .5;
+    const modifier = props.isMobile ? .4 : .5;
     const backgroundOriginalWidth = 480;
     return {
         width: (image.w * modifier) + 'px',
@@ -56,11 +58,7 @@ function summonerSpellStyles(image: {
 
 <template>
     <div class="flex flex-row justify-center items-center content-center flex-grow-1 flex-shrink-0">
-        <div
-            v-if="champion !== null"
-            class="w-12 mr-1 rounded"
-            :style="championStyle(champion?.image)"
-        ></div>
+        <div v-if="champion !== null" class="mr-1 rounded" :style="championStyle(champion?.image)"></div>
         <div class="display flex flex-col">
             <div
                 v-for="(spell, index) in summonerSpells"

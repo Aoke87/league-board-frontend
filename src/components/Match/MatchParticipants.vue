@@ -1,28 +1,30 @@
 <script setup lang="ts">
 
-    import { ParticipantDto } from "../../interfaces/matchV5.dto";
-    import { championStyle } from '../../services/imageSprites';
-    import { store } from "../../store";
+import { ParticipantDto } from "../../interfaces/matchV5.dto";
+import { championStyle } from '../../services/imageSprites';
+import { store } from "../../store";
 
-    defineProps<{
-        teams: Array<ParticipantDto[]>,
-    }>()
+defineProps<{
+    teams: Array<ParticipantDto[]>,
+}>()
 
-    function getChampionStyle(championName: string, scale: number) {
-        return championStyle(store.getters.getChampion(championName)?.image, scale)
-    }
+function getChampionStyle(championName: string, scale: number) {
+    return championStyle(store.getters.getChampion(championName)?.image, scale)
+}
 </script>
 
 <template>
-    <div class="flex w-60 justify-between">
-        <div v-for="team in teams" class="w-28 flex flex-col">
+    <div class="flex mx-2">
+        <div v-for="team in teams" class="w-24 flex flex-col">
             <div v-for="player in team" class="flex" style="margin-bottom: 1px;">
                 <div
                     class="w-3 h-3"
                     style="margin-bottom: 1px"
                     :style="getChampionStyle(player.championName, .35)"
                 />
-                <span class="w-24 ml-1 whitespace-nowrap overflow-hidden overflow-ellipsis flex-grow-0">{{ player.summonerName }}</span>
+                <span
+                    class="w-24 ml-1 whitespace-nowrap overflow-hidden overflow-ellipsis flex-grow-0"
+                >{{ player.summonerName }}</span>
             </div>
         </div>
     </div>

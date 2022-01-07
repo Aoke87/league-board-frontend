@@ -10,6 +10,7 @@ import MatchKda from "./MatchKda.vue";
 import MatchPlayerResult from "./MatchPlayerResult.vue";
 import MatchItems from "./MatchItems.vue";
 import MatchParticipants from "./MatchParticipants.vue";
+import { computed } from "vue";
 
 // const relativeTimeOptions = {
 //     // future: 'in %s',
@@ -31,6 +32,8 @@ dayjs.extend(relativeTime)
 // dayjs.extend(updateLocale)
 dayjs.locale('de')
 // dayjs.updateLocale('de', { relativeTime: relativeTimeOptions })
+
+const isMobile = computed(() => store.getters.getIsMobile);
 
 const props = defineProps<{
     match: MatchDto
@@ -137,8 +140,7 @@ function getZindex(index: number) {
 }
 
 function getImageSource(profileIcon: any) {
-    console.log(profileIcon);
-    return 'image/profileicon/' + profileIcon + '.png'
+    return `image/profileicon/${profileIcon}.png`
 }
 </script>
 
@@ -184,14 +186,44 @@ function getImageSource(profileIcon: any) {
             :match-result="isPlayerMatchResultWin() ? 'Sieg' : 'Niederlage'"
             :match-length="secondsToTime(match.info.gameDuration)"
         />
-        <MatchSummoner :champion="getChampionName()" :summoner-spells="getSummonerSpells()" />
-        <MatchKda :kda="translatePlayerKdaValue()" :stats="translatePlayerStats()" />
-        <MatchPlayerResult
-            :creep-score="getCreepScore()"
-            :level="getLevel()"
-            :kill-participation="null"
-        />
-        <MatchItems v-if="itemIds().length > 0" :items="itemIds()" />
+        <template v-if="!isMobile">
+            <MatchSummoner :champion="getChampionName()" :summoner-spells="getSummonerSpells()" />
+            <MatchKda :kda="translatePlayerKdaValue()" :stats="translatePlayerStats()" />
+        </template>
+        <template v-else>
+            <div class="flex flex-col justify-center">
+                <MatchSummoner
+                    :champion="getChampionName()"
+                    :summoner-spells="getSummonerSpells()"
+                    :is-mobile="true"
+                />
+                <MatchKda
+                    :kda="translatePlayerKdaValue()"
+                    :stats="translatePlayerStats()"
+                    :is-mobile="true"
+                />
+            </div>
+        </template>
+        <template v-if="!isMobile">
+            <MatchPlayerResult
+                :creep-score="getCreepScore()"
+                :level="getLevel()"
+                :kill-participation="null"
+            />
+            <MatchItems v-if="itemIds().length > 0" :items="itemIds()" />
+        </template>
+        <template v-else>
+            <div class="flex flex-col items-center justify-center">
+                <MatchItems v-if="itemIds().length > 0" :items="itemIds()" :is-mobile="true" />
+                <MatchPlayerResult
+                    :creep-score="getCreepScore()"
+                    :level="getLevel()"
+                    :kill-participation="null"
+                    :is-mobile="true"
+                />
+            </div>
+        </template>
+
         <MatchParticipants :teams="getTeams()" />
     </div>
 </template>

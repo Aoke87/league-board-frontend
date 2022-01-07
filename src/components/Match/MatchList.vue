@@ -40,13 +40,11 @@ function isNewSummonerBlock(index: number, matches: MatchDto[]): boolean {
 </script>
 
 <template>
-    <div>
-        <Match
-            v-for="(match, index) in matches"
-            :key="index"
-            :match="match"
-            :is-new-summoner-block="isNewSummonerBlock(index, matches)"
-            :friend-in-match="getFriendsInMatch(match)"
-        />
-    </div>
+    <Match
+        v-for="(match, index) in matches"
+        :key="index"
+        :match="match"
+        :is-new-summoner-block="isNewSummonerBlock(index, matches)"
+        :friend-in-match="getFriendsInMatch(match)"
+    />
 </template>

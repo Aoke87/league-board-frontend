@@ -10,6 +10,7 @@ export const store = createStore({
             initialMatches: [],
             isAssetLoadingComplete: false,
             summoners: [],
+            isMobile: false,
             items: {},
             backendUrl: 'http://localhost:3030/'
         }
@@ -20,6 +21,9 @@ export const store = createStore({
         },
         getSummoners: (state: any) => {
             return state.summoners;
+        },
+        getIsMobile: (state: any) => {
+            return state.isMobile;
         },
         getInitialMatches: (state: any) => {
             return state.initialMatches
@@ -66,6 +70,9 @@ export const store = createStore({
         },
         setBackendUrl: (state: any, payload: boolean) => {
             state.backendUrl = payload;
+        },
+        setIsMobile: (state: any, payload: boolean) => {
+            state.isMobile = payload;
         }
     }
 })
