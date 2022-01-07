@@ -27,7 +27,7 @@ const tierProjection: { [key: string]: number } = {
 };
 
 props.summoners.forEach(summoner => {
-    summoner.leagues.forEach(league => {
+    summoner.leagues2021.forEach(league => {
         if (league.queueType === 'RANKED_SOLO_5x5') {
             soloQueue.push(league)
         }

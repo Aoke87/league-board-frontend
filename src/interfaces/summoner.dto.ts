@@ -7,7 +7,8 @@ export interface SummonerDto {
     "profileIconId": number,
     "revisionDate": number,
     "summonerLevel": number
-    "leagues":  SummonerLeagueDto[]
+    "leagues": SummonerLeagueDto[],
+    "leagues2021": SummonerLeagueDto[],
 }
 
 export interface MiniSeriesDTO {
