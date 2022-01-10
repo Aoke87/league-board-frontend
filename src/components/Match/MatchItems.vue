@@ -16,7 +16,6 @@ function itemStyles(image: {
 }) {
     const modifier = .45;
     const backgroundOriginalWidth = 480;
-    console.log(image)
     if (!image) { return { width: '100%', height: '100%' } }
     return {
         width: '100%',
