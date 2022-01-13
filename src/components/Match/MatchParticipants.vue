@@ -15,13 +15,18 @@ function getChampionStyle(championName: string, scale: number) {
 
 <template>
     <div class="flex mx-2">
-        <div v-for="team in teams" class="w-24 flex flex-col">
-            <div v-for="player in team" class="flex" style="margin-bottom: 1px;">
+        <div v-for="(team, index) in teams" :key="index" class="w-24 flex flex-col">
+            <div
+                v-for="(player, index) in team"
+                :key="index"
+                class="flex"
+                style="margin-bottom: 1px;"
+            >
                 <div
                     class="w-3 h-3"
                     style="margin-bottom: 1px"
                     :style="getChampionStyle(player.championName, .35)"
-                />
+                ></div>
                 <span
                     class="w-24 ml-1 whitespace-nowrap overflow-hidden overflow-ellipsis flex-grow-0"
                 >{{ player.summonerName }}</span>

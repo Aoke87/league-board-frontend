@@ -27,6 +27,7 @@ const summoners = computed(() => {
     -moz-osx-font-smoothing: grayscale;
     text-align: left;
     color: #2c3e50;
+    background-color: #e2e1e0;
 }
 </style>
                                    

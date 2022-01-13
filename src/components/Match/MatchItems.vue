@@ -29,25 +29,53 @@ function itemStyles(image: {
 <template>
     <div class="w-24 h-12 mx-2 grid overflow-hidden grid-cols-4 grid-rows-4 gap-0.5 self-center">
         <div class="box row-span-2">
-            <div :style="itemStyles(items[0]?.image)" class="bg-gray-300"></div>
+            <div
+                :style="itemStyles(items[0]?.image)"
+                class="bg-gray-300"
+                :class="{ 'opacity-50': !items[0] }"
+            ></div>
         </div>
         <div class="box row-span-2">
-            <div :style="itemStyles(items[1]?.image)" class="bg-gray-300"></div>
+            <div
+                :style="itemStyles(items[1]?.image)"
+                class="bg-gray-300"
+                :class="{ 'opacity-50': !items[1] }"
+            ></div>
         </div>
         <div class="box row-span-2">
-            <div :style="itemStyles(items[2]?.image)" class="bg-gray-300"></div>
+            <div
+                :style="itemStyles(items[2]?.image)"
+                class="bg-gray-300"
+                :class="{ 'opacity-50': !items[2] }"
+            ></div>
         </div>
         <div class="box row-start-2 row-span-2 col-start-4">
-            <div :style="itemStyles(items[6]?.image)" class="bg-gray-300"></div>
+            <div
+                :style="itemStyles(items[6]?.image)"
+                class="bg-gray-300"
+                :class="{ 'opacity-50': !items[6] }"
+            ></div>
         </div>
         <div class="box row-start-3 row-span-2">
-            <div :style="itemStyles(items[3]?.image)" class="bg-gray-300"></div>
+            <div
+                :style="itemStyles(items[3]?.image)"
+                class="bg-gray-300"
+                :class="{ 'opacity-50': !items[3] }"
+            ></div>
         </div>
         <div class="box row-start-3 row-span-2">
-            <div :style="itemStyles(items[4]?.image)" class="bg-gray-300"></div>
+            <div
+                :style="itemStyles(items[4]?.image)"
+                class="bg-gray-300"
+                :class="{ 'opacity-50': !items[4] }"
+            ></div>
         </div>
         <div class="box row-start-3 row-span-2">
-            <div :style="itemStyles(items[5]?.image)" class="bg-gray-300"></div>
+            <div
+                :style="itemStyles(items[5]?.image)"
+                class="bg-gray-300"
+                :class="{ 'opacity-50': !items[5] }"
+            ></div>
         </div>
     </div>
 </template>

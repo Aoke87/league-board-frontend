@@ -9,7 +9,7 @@ const isMobileMenuOpen = ref(false)
 <template>
     <!-- This example requires Tailwind CSS v2.0+ -->
     <nav class="bg-gray-800">
-        <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+        <div class="xl:max-w-screen-2xl mx-auto px-2">
             <div class="relative flex items-center justify-between h-16">
                 <div
                     class="absolute inset-y-0 left-0 flex items-center sm:hidden"
@@ -96,18 +96,13 @@ const isMobileMenuOpen = ref(false)
 
                             <a
                                 href="#"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                            >Team</a>
+                                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium cursor-not-allowed"
+                            >Statistics</a>
 
                             <a
                                 href="#"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                            >Projects</a>
-
-                            <a
-                                href="#"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                            >Calendar</a>
+                                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium cursor-not-allowed"
+                            >Champions</a>
                         </div>
                     </div>
                 </div>
