@@ -30,15 +30,16 @@ const colors = [
 
 const graphData = () => {
 
-    const dataSets: { label: string, backgroundColor: string, borderColor: string, data: number[] }[] = [];
+    const dataSets: { label: string, backgroundColor?: string, borderColor?: string, data: number[] }[] = [];
     props.summoners.forEach((sum, index) => {
         const randomColor = randomGreyHex()
         const dataSet: { label: string, backgroundColor?: string, borderColor?: string, data: number[] } = {
             label: sum.name,
             data: [],
             backgroundColor: colors[index] || 'black',
-            borderColor: colors[index] || 'white',
+            borderColor: 'black',
         }
+        if (sum.ranking.soloQueueRanks.length < 7) return;
         sum.ranking.soloQueueRanks.sort((a, b) => a.timestamp > b.timestamp ? 1 : -1);
         sum.ranking.soloQueueRanks.forEach((rank: RankDto) => {
             dataSet.data.push(rank.rating);
@@ -61,7 +62,6 @@ const labels = [
 ];
 
 const yAxis = [
-    { url: `image/ranked/Emblem_Diamond.png`, color: '#003DA6' },
     { url: `image/ranked/Emblem_Platinum.png`, color: '#648680' },
     { url: `image/ranked/Emblem_Gold.png`, color: '#BD811A' },
     { url: `image/ranked/Emblem_Silver.png`, color: '#999999' },
@@ -86,7 +86,7 @@ onMounted(() => {
                     const barHeight = height / arr.length;
                     const x1 = 0;
                     const y1 = 5 + (index * barHeight);
-                    const x2 = width + 50;
+                    const x2 = width + 60;
                     const y2 = barHeight;
                     ctx.globalAlpha = 0.6;
                     ctx.fillStyle = yAxis.color;
@@ -117,7 +117,7 @@ onMounted(() => {
                         },
                         beginAtZero: false,
                         min: 400,
-                        max: 2400,
+                        max: 2000,
                         ticks: {
                             stepSize: 400,
                         },
@@ -132,7 +132,7 @@ onMounted(() => {
                 },
                 layout: {
                     padding: {
-                        left: 50,
+                        left: 60,
                     }
                 },
                 maintainAspectRatio: false,
