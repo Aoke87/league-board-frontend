@@ -84,13 +84,15 @@ function activate(value: SEASONDATA) {
 </script>
 
 <template>
-    <SubNavigation :nav-data="navData" @active="activate"></SubNavigation>
-    <template v-if="activeSeason === SEASONDATA.LAST_ID">
-        <LeagueTable :headline="'Solo Queue'" :games="soloQueue2021"></LeagueTable>
-        <LeagueTable :headline="'Flex Queue'" :games="flexQueue2021"></LeagueTable>
-    </template>
-    <template v-if="activeSeason === SEASONDATA.CURRENT_ID">
-        <LeagueTable :headline="'Solo Queue'" :games="soloQueue"></LeagueTable>
-        <LeagueTable :headline="'Flex Queue'" :games="flexQueue"></LeagueTable>
-    </template>
+    <div class="bg-white p-2">
+        <SubNavigation :nav-data="navData" @active="activate"></SubNavigation>
+        <template v-if="activeSeason === SEASONDATA.LAST_ID">
+            <LeagueTable :headline="'Solo Queue'" :games="soloQueue2021"></LeagueTable>
+            <LeagueTable :headline="'Flex Queue'" :games="flexQueue2021"></LeagueTable>
+        </template>
+        <template v-if="activeSeason === SEASONDATA.CURRENT_ID">
+            <LeagueTable :headline="'Solo Queue'" :games="soloQueue"></LeagueTable>
+            <LeagueTable :headline="'Flex Queue'" :games="flexQueue"></LeagueTable>
+        </template>
+    </div>
 </template>

@@ -9,6 +9,22 @@ export interface SummonerDto {
     "summonerLevel": number
     "leagues": SummonerLeagueDto[],
     "leagues2021": SummonerLeagueDto[],
+    "ranking": RankingsDto,
+}
+
+export interface RankingsDto {
+    currentFlexQueueRating: number,
+    currentSoloQueueRating: number,
+    flexQueueRanks: RankDto[],
+    soloQueueRanks: RankDto[],
+}
+
+export interface RankDto {
+    points: number,
+    rank: string,
+    rating: number,
+    tier: string
+    timestamp: number,
 }
 
 export interface MiniSeriesDTO {

@@ -4,6 +4,7 @@ import MatchList from './Match/MatchList.vue'
 import League from "./League/League.vue";
 import { store } from '../store';
 import { computed } from 'vue';
+import LeagueGraph from './League/LeagueGraph.vue';
 
 const summoners = computed(() => {
     return store.getters.getSummoners;
@@ -14,8 +15,9 @@ const summoners = computed(() => {
     <div class="w-full xl:max-w-screen-2xl xl:mx-auto">
         <div class="flex flex-row flex-wrap pt-4 md:pt-2">
             <aside class="w-full sm:w-1/3 md:w-1/3 xl:w-1/4 px-2 mb-2 sm:mb-0">
-                <div class="sticky top-0 w-full shadow-md bg-white p-2">
+                <div class="sticky top-0 w-full shadow-md">
                     <League v-if="summoners.length > 0" :summoners="summoners"></League>
+                    <LeagueGraph v-if="summoners.length > 0" :summoners="summoners"></LeagueGraph>
                 </div>
             </aside>
             <main
