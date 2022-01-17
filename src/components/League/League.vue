@@ -2,13 +2,20 @@
 
 import { ref } from "vue";
 import { SummonerDto, SummonerLeagueDto } from "../../interfaces/summoner.dto";
+import { NavigationData } from "../Match/MatchList.vue";
 import LeagueTable from "./Table.vue";
+import SubNavigation from "../SubNavigation.vue";
 
+
+const enum SEASONDATA {
+    CURRENT_ID = 'Current Season',
+    LAST_ID = '2021',
+}
 const props = defineProps<{
     summoners: SummonerDto[],
 }>()
 
-const activeSeason = ref(2022);
+const activeSeason = ref(SEASONDATA.CURRENT_ID);
 
 const soloQueue: SummonerLeagueDto[] = [];
 const soloQueue2021: SummonerLeagueDto[] = [];
@@ -31,6 +38,11 @@ const tierProjection: { [key: string]: number } = {
     'BRONZE': 8,
     'IRON': 9,
 };
+
+const navData: NavigationData[] = [
+    { title: SEASONDATA.CURRENT_ID, disabled: false },
+    { title: SEASONDATA.LAST_ID, disabled: false },
+]
 
 props.summoners.forEach(summoner => {
     summoner.leagues.forEach(league => {
@@ -55,10 +67,6 @@ props.summoners.forEach(summoner => {
     flexQueue2021.sort(compareRanks)
 });
 
-function getLeagueEmblem(leagueId: string) {
-    return `image/ranked/Emblem_${leagueId.charAt(0) + leagueId.slice(1).toLowerCase()}.png`
-}
-
 function compareRanks(a: SummonerLeagueDto, b: SummonerLeagueDto): number {
     if (a.tier === b.tier && a.rank == b.rank) {
         return a.leaguePoints < b.leaguePoints ? 1 : -1;
@@ -69,26 +77,19 @@ function compareRanks(a: SummonerLeagueDto, b: SummonerLeagueDto): number {
     return tierProjection[a.tier] > tierProjection[b.tier] ? 1 : -1;
 }
 
+function activate(value: SEASONDATA) {
+    activeSeason.value = value;
+}
+
 </script>
 
 <template>
-    <nav class="flex sm:flex-row mb-3">
-        <button
-            @click="activeSeason = 2022"
-            class="text-gray-600 py-4 px-0 sm:px-6 block hover:text-blue-500 focus:outline-none"
-            :class="{ 'text-blue-500 border-b-2 border-blue-500': activeSeason === 2022 }"
-        >Current Season</button>
-        <button
-            @click="activeSeason = 2021"
-            class="text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none"
-            :class="{ 'text-blue-500 border-b-2 border-blue-500': activeSeason === 2021 }"
-        >2021</button>
-    </nav>
-    <template v-if="activeSeason === 2021">
+    <SubNavigation :nav-data="navData" @active="activate"></SubNavigation>
+    <template v-if="activeSeason === SEASONDATA.LAST_ID">
         <LeagueTable :headline="'Solo Queue'" :games="soloQueue2021"></LeagueTable>
         <LeagueTable :headline="'Flex Queue'" :games="flexQueue2021"></LeagueTable>
     </template>
-    <template v-if="activeSeason === 2022">
+    <template v-if="activeSeason === SEASONDATA.CURRENT_ID">
         <LeagueTable :headline="'Solo Queue'" :games="soloQueue"></LeagueTable>
         <LeagueTable :headline="'Flex Queue'" :games="flexQueue"></LeagueTable>
     </template>

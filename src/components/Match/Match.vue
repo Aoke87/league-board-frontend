@@ -104,7 +104,7 @@ function getCreepScore() {
 }
 
 function getLevel() {
-    return props.friendInMatch[0]?.champLevel;
+    return props.friendInMatch[0]?.champLevel || 0;
 }
 
 function itemIds(): Array<number | null> {
@@ -139,8 +139,8 @@ function getZindex(index: number) {
     }
 }
 
-function getImageSource(profileIcon: any) {
-    return `image/profileicon/${profileIcon}.png`
+function getImageSource(profileIcon: number) {
+    return `http://ddragon.leagueoflegends.com/cdn/12.1.1/img/profileicon/${profileIcon}.png`
 }
 </script>
 

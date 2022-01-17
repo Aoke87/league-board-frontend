@@ -1,13 +1,13 @@
 <script setup lang="ts">
 
 import MatchList from './Match/MatchList.vue'
-import { SummonerDto } from "../interfaces/summoner.dto";
 import League from "./League/League.vue";
+import { store } from '../store';
+import { computed } from 'vue';
 
-defineProps<{
-    summoners: SummonerDto[]
-}>()
-
+const summoners = computed(() => {
+    return store.getters.getSummoners;
+})
 </script>
 
 <template>
@@ -19,7 +19,7 @@ defineProps<{
                 </div>
             </aside>
             <main
-                class="w-full sm:w-2/3 md:w-2/3 xl:w-1/2 px-2 flex flex-col items-start overflow-scroll"
+                class="w-full sm:w-2/3 md:w-2/3 xl:w-1/2 px-2 flex flex-col items-start"
                 role="main"
             >
                 <MatchList :summoners="summoners" />

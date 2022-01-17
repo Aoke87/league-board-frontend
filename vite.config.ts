@@ -6,5 +6,8 @@ export default defineConfig({
   plugins: [vue()],
   server: {
     port: 3030
+  },
+  build: {
+    outDir: '/Users/buchholzp/Documents/project/private/league-board-backend/client'
   }
 })

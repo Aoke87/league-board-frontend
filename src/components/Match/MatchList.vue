@@ -4,16 +4,26 @@ import type { MatchDto, ParticipantDto } from "../../interfaces/matchV5.dto";
 import type { SummonerDto } from "../../interfaces/summoner.dto";
 import Match from './Match.vue'
 import { store } from "../../store";
+import LoadingSpinnerVue from '../LoadingSpinner.vue';
+import SubNavigation from '../SubNavigation.vue';
+
+export interface NavigationData {
+    title: string,
+    disabled: boolean,
+}
+
+const navData: NavigationData[] = [
+    { title: 'Show All', disabled: false },
+    { title: 'Solo Queue', disabled: true },
+    { title: 'Flex Queue', disabled: true },
+]
 
 const props = defineProps<{
     summoners: SummonerDto[]
 }>()
 
 const summonerIds = computed(() => props.summoners.map(sum => sum.puuid))
-
-const matches = computed(() => {
-    return store.getters.getInitialMatches;
-})
+const matches = computed(() => store.getters.getInitialMatches)
 
 const showQueue = ref('all')
 
@@ -42,32 +52,20 @@ function isNewSummonerBlock(index: number, matches: MatchDto[]): boolean {
 </script>
 
 <template>
-    <div class="px-2 pt-2 sm:pt-0 shadow-md bg-white">
-        <nav class="sm:flex flex-col sm:flex-row mb-3 hidden">
-            <button
-                @click="showQueue = 'all'"
-                class="text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none"
-                :class="{ 'text-blue-500 border-b-2 border-blue-500': showQueue === 'all' }"
-            >Show All</button>
-            <button
-                @click="showQueue = 'solo'"
-                disabled
-                class="text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none disabled"
-                :class="{ 'text-blue-500 border-b-2 border-blue-500': showQueue === 'solo' }"
-            >Solo Queue</button>
-            <button
-                @click="showQueue = 'flex'"
-                disabled
-                class="text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none disabled"
-                :class="{ 'text-blue-500 border-b-2 border-blue-500': showQueue === 'flex' }"
-            >Flex Queue</button>
-        </nav>
-        <Match
-            v-for="(match, index) in matches"
-            :key="index"
-            :match="match"
-            :is-new-summoner-block="isNewSummonerBlock(index, matches)"
-            :friend-in-match="getFriendsInMatch(match)"
-        />
+    <div class="px-2 pt-2 shadow-md bg-white">
+        <SubNavigation :nav-data="navData" />
+        <template v-if="!matches || matches.length === 0">
+            <LoadingSpinnerVue :width="694" />
+        </template>
+        <template v-else>
+            <Match
+                v-for="(match, index) in matches"
+                :key="index"
+                :match="match"
+                :is-new-summoner-block="isNewSummonerBlock(index, matches)"
+                :friend-in-match="getFriendsInMatch(match)"
+            />
+        </template>
     </div>
 </template>
+
