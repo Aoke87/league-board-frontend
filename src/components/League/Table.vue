@@ -13,7 +13,8 @@ function getLeagueEmblem(leagueId: string) {
 
 <template>
     <div class="w-full flex flex-col mt-4">
-        <h3 class="leading-2">{{ headline }}</h3>
+        <span class="leading-none">Stats Overview</span>
+        <span class="text-xs leading-none line block text-gray-500 mb-2">{{ headline }}</span>
         <table class="w-full table-auto text-left">
             <thead>
                 <tr>

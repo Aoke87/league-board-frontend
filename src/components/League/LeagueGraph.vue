@@ -1,65 +1,63 @@
 <script setup lang="ts">
 //registers everything inside chartjs
 import { Chart, registerables } from 'chart.js';
-import { computed, onMounted } from 'vue';
+import 'chartjs-adapter-moment';
+import { onMounted } from 'vue';
 import { RankDto, SummonerDto } from '../../interfaces/summoner.dto';
-import { store } from './../../store';
 Chart.register(...registerables);
 
 const props = defineProps<{
     summoners: SummonerDto[],
 }>()
 
-function randomGreyHex() {
-    var v = (Math.random() * (256) | 0).toString(16);//bitwise OR. Gives value in the range 0-255 which is then converted to base 16 (hex).
-    return "#" + v + v + v;
-}
-
 const colors = [
-    'rgb(255, 99, 132)',
-    'rgb(255, 159, 64)',
-    'rgb(255, 205, 86)',
-    'rgb(75, 192, 192)',
-    'rgb(54, 162, 235)',
-    'rgb(153, 102, 255)',
-    'rgb(201, 203, 207)',
-    'rgb(132, 99, 255)',
-    'rgb(132, 99, 255)',
-    'rgb(64, 159, 255)',
+    'FireBrick',
+    'Green',
+    'Blue',
+    'DarkOrchid',
+    'Brown',
+    'DarkMagenta',
+    'Crimson',
+    'DarkGreen',
+    'HotPink',
+    'Grey',
+    'DarkBlue',
+    'Gold',
+    'BlueViolet',
 ];
 
-const graphData = () => {
+export interface DataSet {
+    label: string,
+    backgroundColor?: string,
+    borderColor?: string,
+    data: { x: number, y: number, tooltip: string }[]
+}
 
-    const dataSets: { label: string, backgroundColor?: string, borderColor?: string, data: number[] }[] = [];
+const graphData = () => {
+    const dataSets: DataSet[] = [];
     props.summoners.forEach((sum, index) => {
-        const randomColor = randomGreyHex()
-        const dataSet: { label: string, backgroundColor?: string, borderColor?: string, data: number[] } = {
+        const dataSet: DataSet = {
             label: sum.name,
             data: [],
             backgroundColor: colors[index] || 'black',
-            borderColor: 'black',
+            borderColor: colors[index] || 'black',
         }
         if (sum.ranking.soloQueueRanks.length < 7) return;
         sum.ranking.soloQueueRanks.sort((a, b) => a.timestamp > b.timestamp ? 1 : -1);
         sum.ranking.soloQueueRanks.forEach((rank: RankDto) => {
-            dataSet.data.push(rank.rating);
+            dataSet.data.push({
+                x: rank.timestamp * 1000,
+                y: rank.rating,
+                tooltip: `${rank.tier} ${rank.rank} ${rank.points}`
+            });
         });
         dataSets.push(dataSet);
     })
     return {
         datasets: dataSets,
-        labels,
     };
 }
 
-const labels = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-];
 
 const yAxis = [
     { url: `image/ranked/Emblem_Platinum.png`, color: '#648680' },
@@ -86,12 +84,41 @@ onMounted(() => {
                     const barHeight = height / arr.length;
                     const x1 = 0;
                     const y1 = 5 + (index * barHeight);
-                    const x2 = width + 60;
-                    const y2 = barHeight;
+                    const widthOffset = 70;
+
+                    // draw backgrounds
                     ctx.globalAlpha = 0.6;
                     ctx.fillStyle = yAxis.color;
-                    ctx.fillRect(x1, y1, x2, y2);
+                    ctx.fillRect(x1, y1, width + widthOffset, barHeight);
                     ctx.globalAlpha = 1;
+
+                    // draw devision lines
+                    ctx.font = "14px Roboto";
+                    ctx.strokeStyle = '#999'
+
+                    ctx.fillText("I", x1 + widthOffset - 10, y1 + .25 * barHeight);
+                    ctx.fillText("II", x1 + widthOffset - 10, y1 + .5 * barHeight);
+                    ctx.fillText("III", x1 + widthOffset - 10, y1 + .75 * barHeight);
+                    if (index !== 3) {
+                        ctx.fillText("IV", x1 + widthOffset - 10, y1 + barHeight);
+                    }
+                    ctx.beginPath();
+                    ctx.moveTo(x1 + widthOffset + 10, y1 + .25 * barHeight);
+                    ctx.lineTo(width + widthOffset + 10, y1 + .25 * barHeight);
+
+
+                    ctx.moveTo(x1 + widthOffset + 10, y1 + .5 * barHeight);
+                    ctx.lineTo(width + widthOffset + 10, y1 + .5 * barHeight);
+
+
+                    ctx.moveTo(x1 + widthOffset + 10, y1 + .75 * barHeight);
+                    ctx.lineTo(width + widthOffset + 10, y1 + .75 * barHeight);
+
+                    ctx.moveTo(x1 + widthOffset + 10, y1 + barHeight);
+                    ctx.lineTo(width + widthOffset + 10, y1 + barHeight);
+                    ctx.stroke();
+
+                    // draw emblems
                     ctx.drawImage(yAxis.image, x1 + 5, y1, height / arr.length, height / arr.length);
                     ctx.restore();
                 })
@@ -108,6 +135,14 @@ onMounted(() => {
                         display: true,
                         position: 'bottom'
                     },
+                    tooltip: {
+                        callbacks: {
+                            label: function (context: any) {
+                                console.log(context)
+                                return context?.raw?.tooltip;
+                            }
+                        }
+                    }
                 },
                 scales: {
                     y: {
@@ -125,9 +160,14 @@ onMounted(() => {
                     },
                     x: {
                         display: true,
+                        type: 'time',
+                        time: {
+                            unit: 'day',
+                        },
                         grid: {
                             display: true
-                        }
+                        },
+                        min: 1641772800000, // Monday, 10. January 2022 00:00:00
                     }
                 },
                 layout: {
@@ -141,13 +181,13 @@ onMounted(() => {
         });
     }
 })
-
 </script>
 
 <template>
     <div class="bg-white p-2 mt-4">
-        <h3>Rating 2022</h3>
-        <div class="h-72">
+        <span class="leading-none">Rankings 2022</span>
+        <span class="text-xs leading-none line block text-gray-500 mb-2">Solo Queue</span>
+        <div class="h-80">
             <canvas id="myChart"></canvas>
         </div>
     </div>

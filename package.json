@@ -9,8 +9,10 @@
   },
   "dependencies": {
     "chart.js": "^3.7.0",
+    "chartjs-adapter-moment": "^1.0.0",
     "dayjs": "^1.10.7",
     "dotenv": "^10.0.0",
+    "moment": "^2.29.1",
     "vue": "^3.2.25",
     "vue-eslint-parser": "^8.0.1",
     "vuex": "^4.0.2"
