@@ -23,7 +23,9 @@ const props = defineProps<{
 }>()
 
 const summonerIds = computed(() => props.summoners.map(sum => sum.puuid))
-const matches = computed(() => store.getters.getInitialMatches)
+const matches = computed(() => {
+    return (store.getters.getInitialMatches as MatchDto[]).sort((a, b) => a.info.gameEndTimestamp < b.info.gameEndTimestamp ? 1 : -1)
+})
 
 const showQueue = ref('all')
 

@@ -171,7 +171,7 @@ function getImageSource(profileIcon: number) {
             />
             <div class="ml-1">
                 <span>{{ friendInMatch[0].summonerName }}, {{ friendInMatch[1].summonerName }}</span>
-                <span v-if="friendInMatch.length > 2">+ {{ friendInMatch.length - 2 }} more</span>
+                <span v-if="friendInMatch.length > 2">{{ ` + ${friendInMatch.length - 2} more` }}</span>
             </div>
         </div>
     </div>

@@ -14,7 +14,5 @@ defineProps<{
         <span>Stufe {{ level }}</span>
         <span>{{ creepScore }}</span>
         <span v-if="killParticipation">{{ killParticipation }}</span>
-        <span v-if="!isMobile">Tier Average</span>
-        <span v-if="!isMobile">Platinum</span>
     </div>
 </template>

@@ -14,14 +14,14 @@ const summoners = computed(() => {
 <template>
     <div class="w-full xl:max-w-screen-2xl xl:mx-auto">
         <div class="flex flex-row flex-wrap pt-4 md:pt-2">
-            <aside class="w-full sm:w-1/3 md:w-1/3 xl:w-1/4 px-2 mb-2 sm:mb-0">
+            <aside class="w-full sm:w-1/3 md:w-1/3 xl:w-2/6 px-2 mb-2 sm:mb-0">
                 <div class="sticky top-0 w-full shadow-md">
                     <League v-if="summoners.length > 0" :summoners="summoners"></League>
                     <LeagueGraph v-if="summoners.length > 0" :summoners="summoners"></LeagueGraph>
                 </div>
             </aside>
             <main
-                class="w-full sm:w-2/3 md:w-2/3 xl:w-1/2 px-2 flex flex-col items-start"
+                class="w-full sm:w-2/3 md:w-2/3 xl:w-2/5 px-2 flex flex-col items-start"
                 role="main"
             >
                 <MatchList :summoners="summoners" />

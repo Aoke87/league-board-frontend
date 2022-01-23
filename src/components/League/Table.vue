@@ -15,14 +15,15 @@ function getLeagueEmblem(leagueId: string) {
     <div class="w-full flex flex-col mt-4">
         <span class="leading-none">Stats Overview</span>
         <span class="text-xs leading-none line block text-gray-500 mb-2">{{ headline }}</span>
-        <table class="w-full table-auto text-left">
+        <table class="w-full table-fixed text-left">
             <thead>
                 <tr>
                     <th class="w-5 px-1">#</th>
                     <th>League</th>
                     <th>Points</th>
-                    <th>Name</th>
+                    <th class="max-w-[200px]">Name</th>
                     <th>Win/Loss</th>
+                    <th class>%</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,11 +40,16 @@ function getLeagueEmblem(leagueId: string) {
                         <span class="ml-2">{{ leagueEntry.rank }}</span>
                     </td>
                     <td>{{ leagueEntry.leaguePoints }}</td>
-                    <td class="text-left">{{ leagueEntry.summonerName }}</td>
+                    <td
+                        class="text-left text-ellipsis overflow-hidden"
+                    >{{ leagueEntry.summonerName }}</td>
                     <td>
                         <span>{{ leagueEntry.wins }}</span>
                         /
                         <span>{{ leagueEntry.losses }}</span>
+                    </td>
+                    <td>
+                        <span>{{ Number(leagueEntry.wins / (leagueEntry.wins + leagueEntry.losses) * 100).toFixed(1) }}%</span>
                     </td>
                 </tr>
             </tbody>
