@@ -181,7 +181,7 @@ function getImageSource(profileIcon: number) {
     </div>
     <div
         :style="colorizeBackground()"
-        class="mb-4 border p-1 flex flex-row text-xs match-container justify-start shadow-sm overflow-x-scroll"
+        class="mb-4 border p-1 flex flex-row text-xs match-container justify-start shadow-sm max-w-full overflow-x-auto"
     >
         <MatchStats
             v-if="match"

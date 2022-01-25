@@ -75,7 +75,7 @@ async function loadNewMatches(page: number) {
 </script>
 
 <template>
-    <div ref="matchlist" class="max-w-full px-2 pt-2 shadow-md bg-white overflow-x-scroll">
+    <div ref="matchlist" class="max-w-full px-2 pt-2 shadow-md bg-white">
         <SubNavigation :nav-data="navData" />
         <template v-if="!matches || matches.length === 0">
             <LoadingSpinnerVue :width="694" />
