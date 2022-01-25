@@ -5,6 +5,8 @@ defineProps<{
     creepScore: string,
     killParticipation: string | null,
     isMobile?: boolean,
+    wardsPlaced?: number,
+    visionScore?: number,
 }>()
 
 </script>
@@ -14,5 +16,9 @@ defineProps<{
         <span>Stufe {{ level }}</span>
         <span>{{ creepScore }}</span>
         <span v-if="killParticipation">{{ killParticipation }}</span>
+        <div class="flex items-center">
+            <img width="15" height="15" src="/image/eye.svg" />
+            <span class="ml-1">{{ visionScore }}</span>
+        </div>
     </div>
 </template>

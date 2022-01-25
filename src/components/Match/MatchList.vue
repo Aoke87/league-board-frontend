@@ -6,6 +6,8 @@ import Match from './Match.vue'
 import { store } from "../../store";
 import LoadingSpinnerVue from '../LoadingSpinner.vue';
 import SubNavigation from '../SubNavigation.vue';
+import MatchPagination from './MatchPagination.vue';
+import { fetchMatchByPage } from '../../services/requestService';
 
 export interface NavigationData {
     title: string,
@@ -24,10 +26,15 @@ const props = defineProps<{
 
 const summonerIds = computed(() => props.summoners.map(sum => sum.puuid))
 const matches = computed(() => {
-    return (store.getters.getInitialMatches as MatchDto[]).sort((a, b) => a.info.gameEndTimestamp < b.info.gameEndTimestamp ? 1 : -1)
+    if (store.getters.getMatchesByPage(activePage.value).length !== 0) {
+        const sortedMatches = (store.getters.getMatchesByPage(activePage.value) as MatchDto[]).sort((a, b) => a.info.gameEndTimestamp < b.info.gameEndTimestamp ? 1 : -1);
+        console.log(sortedMatches.map(m => new Date(m.info.gameEndTimestamp)))
+        return sortedMatches;
+    }
+    return [];
 })
 
-const showQueue = ref('all')
+const activePage = ref(0)
 
 function getFriendsInMatch(match: MatchDto): ParticipantDto[] {
     const friends: ParticipantDto[] = [];
@@ -51,10 +58,19 @@ function isNewSummonerBlock(index: number, matches: MatchDto[]): boolean {
     if (summonersInCurrentGame.length !== summonersInPreviousGame.length) { return true; }
     return summonersInCurrentGame[0].puuid !== summonersInPreviousGame[0].puuid;
 }
+
+async function loadNewMatches(page: number) {
+    if (store.getters.getMatchesByPage(page).length === 0) {
+        const matches = await fetchMatchByPage(page);
+        store.commit('setMatchesByPage', { page, matches });
+    }
+    activePage.value = page;
+}
+
 </script>
 
 <template>
-    <div class="px-2 pt-2 shadow-md bg-white">
+    <div class="max-w-full px-2 pt-2 shadow-md bg-white overflow-x-scroll">
         <SubNavigation :nav-data="navData" />
         <template v-if="!matches || matches.length === 0">
             <LoadingSpinnerVue :width="694" />
@@ -68,6 +84,7 @@ function isNewSummonerBlock(index: number, matches: MatchDto[]): boolean {
                 :friend-in-match="getFriendsInMatch(match)"
             />
         </template>
+        <MatchPagination @activate-page="loadNewMatches"></MatchPagination>
     </div>
 </template>
 

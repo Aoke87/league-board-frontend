@@ -1,4 +1,3 @@
-// @ts-ignore
 import { createStore } from 'vuex';
 import './index.css'
 
@@ -8,6 +7,7 @@ export const store = createStore({
             champions: {},
             summonerSpells: {},
             initialMatches: [],
+            matchPages: {},
             isAssetLoadingComplete: false,
             summoners: [],
             isMobile: false,
@@ -27,6 +27,13 @@ export const store = createStore({
         },
         getInitialMatches: (state: any) => {
             return state.initialMatches
+        },
+        getMatchesByPage: (state: any) => (page: number) => {
+            if (Object.prototype.hasOwnProperty.call(state.matchPages, page)) {
+                return state.matchPages[page];
+            } else {
+                return [];
+            }
         },
         getIsAssetLoadingComplete: (state: any) => {
             return state.isAssetLoadingComplete;
@@ -61,6 +68,11 @@ export const store = createStore({
         },
         setInitialMatches: (state: any, initialMatches: any) => {
             state.initialMatches = initialMatches
+        },
+        setMatchesByPage: (state: any, matchPageEntry: { page: number, matches: any[] }) => {
+            const newMatchesByPage = { ...state.matchPages }
+            newMatchesByPage[matchPageEntry.page] = matchPageEntry.matches;
+            state.matchPages = newMatchesByPage;
         },
         setItems: (state: any, items: any) => {
             state.items = items

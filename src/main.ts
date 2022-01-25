@@ -15,7 +15,11 @@ import { isMobile } from './services/utilsService';
     store.commit('setBackendUrl', backendUrl);
     store.commit('setChampions', champions.data);
     store.commit('setSummonerSpells', summoner.data);
-    store.commit('setInitialMatches', await matchesResponse.json());
+    // store.commit('setInitialMatches', await matchesResponse.json());
+
+    const initialMatches = await matchesResponse.json();
+    store.commit('setMatchesByPage', { page: 0, matches: initialMatches });
+
     store.commit('setSummoners', await summonerResponse.json());
     store.commit('setItems', items.data);
     store.commit('setIsAssetLoadingComplete', true);

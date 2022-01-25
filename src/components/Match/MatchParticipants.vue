@@ -15,7 +15,7 @@ function getChampionStyle(championName: string, scale: number) {
 
 <template>
     <div class="flex mx-2">
-        <div v-for="(team, index) in teams" :key="index" class="w-24 flex flex-col">
+        <div v-for="(team, index) in teams" :key="index" class="w-28 flex flex-col">
             <div
                 v-for="(player, index) in team"
                 :key="index"
@@ -28,7 +28,7 @@ function getChampionStyle(championName: string, scale: number) {
                     :style="getChampionStyle(player.championName, .35)"
                 ></div>
                 <span
-                    class="w-24 ml-1 whitespace-nowrap overflow-hidden overflow-ellipsis flex-grow-0"
+                    class="ml-1 whitespace-nowrap overflow-hidden overflow-ellipsis flex-grow-0"
                 >{{ player.summonerName }}</span>
             </div>
         </div>

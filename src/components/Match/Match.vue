@@ -107,6 +107,10 @@ function getLevel() {
     return props.friendInMatch[0]?.champLevel || 0;
 }
 
+function getVisionScore() {
+    return props.friendInMatch[0]?.visionScore || 0;
+}
+
 function itemIds(): Array<number | null> {
     const itemIds = [
         props.friendInMatch[0]?.item0 ?? null,
@@ -177,7 +181,7 @@ function getImageSource(profileIcon: number) {
     </div>
     <div
         :style="colorizeBackground()"
-        class="mb-4 border p-1 flex flex-row text-xs match-container justify-start shadow-sm"
+        class="mb-4 border p-1 flex flex-row text-xs match-container justify-start shadow-sm overflow-x-scroll"
     >
         <MatchStats
             v-if="match"
@@ -191,7 +195,7 @@ function getImageSource(profileIcon: number) {
             <MatchKda :kda="translatePlayerKdaValue()" :stats="translatePlayerStats()" />
         </template>
         <template v-else>
-            <div class="flex flex-col justify-center">
+            <div class="flex flex-col justify-center w-20 sm:w-auto">
                 <MatchSummoner
                     :champion="getChampionName()"
                     :summoner-spells="getSummonerSpells()"
@@ -209,6 +213,8 @@ function getImageSource(profileIcon: number) {
                 :creep-score="getCreepScore()"
                 :level="getLevel()"
                 :kill-participation="null"
+                :wards-placed="getVisionScore()"
+                :vision-score="getVisionScore()"
             />
             <MatchItems v-if="itemIds().length > 0" :items="itemIds()" />
         </template>
@@ -220,6 +226,8 @@ function getImageSource(profileIcon: number) {
                     :level="getLevel()"
                     :kill-participation="null"
                     :is-mobile="true"
+                    :wards-placed="getVisionScore()"
+                    :vision-score="getVisionScore()"
                 />
             </div>
         </template>
