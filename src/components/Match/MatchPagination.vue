@@ -5,8 +5,8 @@ const selectablePages = [1, 2, 3];
 const emit = defineEmits(['activatePage'])
 let activePage = ref(0);
 
-
 function changePage(page: number) {
+    console.log('chaning page', page)
     if (page < 0 || page > 10) { return; }
     activePage.value = page
     emit('activatePage', page);
@@ -19,11 +19,11 @@ function changePage(page: number) {
     >
         <div class="flex-1 flex justify-between sm:hidden">
             <a
-                href="#"
+                v-on:click.prevent="changePage(activePage - 1)"
                 class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
             >Previous</a>
             <a
-                href="#"
+                v-on:click.prevent="changePage(activePage + 1)"
                 class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
             >Next</a>
         </div>
