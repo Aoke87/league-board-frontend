@@ -6,7 +6,6 @@ const emit = defineEmits(['activatePage'])
 let activePage = ref(0);
 
 function changePage(page: number) {
-    console.log('chaning page', page)
     if (page < 0 || page > 10) { return; }
     activePage.value = page
     emit('activatePage', page);

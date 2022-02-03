@@ -12,12 +12,16 @@ export const store = createStore({
             summoners: [],
             isMobile: false,
             items: {},
-            backendUrl: 'http://localhost:3030/'
+            backendUrl: 'http://localhost:3030/',
+            version: null,
         }
     },
     getters: {
         getChampion: (state: any) => (championName: string) => {
-            return state.champions[championName]
+            return state.champions[championName];
+        },
+        getVersion: (state: any) => {
+            return state.version;
         },
         getSummoners: (state: any) => {
             return state.summoners;
@@ -26,7 +30,7 @@ export const store = createStore({
             return state.isMobile;
         },
         getInitialMatches: (state: any) => {
-            return state.initialMatches
+            return state.initialMatches;
         },
         getMatchesByPage: (state: any) => (page: number) => {
             if (Object.prototype.hasOwnProperty.call(state.matchPages, page)) {
@@ -59,6 +63,9 @@ export const store = createStore({
     mutations: {
         setChampions: (state: any, champions: any) => {
             state.champions = champions;
+        },
+        setVersion: (state: any, version: any) => {
+            state.version = version;
         },
         setSummoners: (state: any, summoners: any) => {
             state.summoners = summoners;

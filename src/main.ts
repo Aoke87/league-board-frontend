@@ -11,8 +11,11 @@ import { isMobile } from './services/utilsService';
     const backendUrl = import.meta.env.DEV ? import.meta.env.VITE_DEV_BACKEND_URL : import.meta.env.VITE_PROD_BACKEND_URL;
     const matchesResponse = await fetch(`${backendUrl}match-v5/latest`);
     const summonerResponse = await fetch(`${backendUrl}summoner/all`);
+    const versionResponse = await fetch(`https://ddragon.leagueoflegends.com/api/versions.json`);
+    const version = await versionResponse.json();
 
     store.commit('setBackendUrl', backendUrl);
+    store.commit('setVersion', version[0]);
     store.commit('setChampions', champions.data);
     store.commit('setSummonerSpells', summoner.data);
     // store.commit('setInitialMatches', await matchesResponse.json());

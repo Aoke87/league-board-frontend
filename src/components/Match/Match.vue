@@ -34,6 +34,7 @@ dayjs.locale('de')
 // dayjs.updateLocale('de', { relativeTime: relativeTimeOptions })
 
 const isMobile = computed(() => store.getters.getIsMobile);
+const currentVersion = computed(() => store.getters.getVersion);
 
 const props = defineProps<{
     match: MatchDto
@@ -144,7 +145,7 @@ function getZindex(index: number) {
 }
 
 function getImageSource(profileIcon: number) {
-    return `http://ddragon.leagueoflegends.com/cdn/12.1.1/img/profileicon/${profileIcon}.png`
+    return `http://ddragon.leagueoflegends.com/cdn/${currentVersion.value}/img/profileicon/${profileIcon}.png`
 }
 </script>
 
