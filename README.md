@@ -20,4 +20,12 @@ e.g. `https://ddragon.leagueoflegends.com/cdn/dragontail-12.4.1.tgz`
 
 
 Unzip Files
-Go to folder /{VERSION}
+Go to folder /{VERSION}/data/de_DE
+
+Copy
+/champion.json to public/data/de_DE/champion.json
+/item.json to public/data/de_DE/item.json
+/summoner.json to public/data/de_DE/summoner.json
+
+Go to folder /{VERSION}/img/sprite/ to public/sprite
+
