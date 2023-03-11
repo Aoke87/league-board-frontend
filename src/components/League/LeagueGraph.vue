@@ -1,29 +1,27 @@
 <script setup lang="ts">
-//registers everything inside chartjs
-import { Chart, registerables } from 'chart.js';
-import 'chartjs-adapter-moment';
-import { onMounted } from 'vue';
-import { RankDto, SummonerDto } from '../../interfaces/summoner.dto';
+// registers everything inside chartjs
+import { Chart, registerables } from "chart.js";
+import "chartjs-adapter-moment";
+import { onMounted } from "vue";
+import { RankDto, SummonerDto } from "../../interfaces/summoner.dto";
+
 Chart.register(...registerables);
 
 const props = defineProps<{
     summoners: SummonerDto[],
-}>()
+}>();
 
 const colors = [
-    'FireBrick',
-    'Green',
-    'Blue',
-    'DarkOrchid',
-    'Brown',
-    'DarkMagenta',
-    'Crimson',
-    'DarkGreen',
-    'HotPink',
-    'Grey',
-    'DarkBlue',
-    'Gold',
-    'BlueViolet',
+    "FireBrick",
+    "Green", "Blue", "DarkOrchid", "Brown",
+    "DarkMagenta",
+    "Crimson",
+    "DarkGreen",
+    "HotPink",
+    "Grey",
+    "DarkBlue",
+    "Gold",
+    "BlueViolet",
 ];
 
 export interface DataSet {
@@ -39,46 +37,49 @@ const graphData = () => {
         const dataSet: DataSet = {
             label: sum.name,
             data: [],
-            backgroundColor: colors[index] || 'black',
-            borderColor: colors[index] || 'black',
-        }
+            backgroundColor: colors[index] || "black",
+            borderColor: colors[index] || "black",
+        };
         if (sum.ranking.soloQueueRanks.length < 7) return;
-        sum.ranking.soloQueueRanks.sort((a, b) => a.timestamp > b.timestamp ? 1 : -1);
+        sum.ranking.soloQueueRanks.sort((a, b) => (a.timestamp > b.timestamp ? 1 : -1));
         sum.ranking.soloQueueRanks.forEach((rank: RankDto) => {
             dataSet.data.push({
                 x: rank.timestamp * 1000,
                 y: rank.rating,
-                tooltip: `${rank.tier} ${rank.rank} ${rank.points}`
+                tooltip: `${rank.tier} ${rank.rank} ${rank.points}`,
             });
         });
         dataSets.push(dataSet);
-    })
+    });
     return {
         datasets: dataSets,
     };
-}
-
+};
 
 const yAxis = [
-    { url: `image/ranked/Emblem_Platinum.png`, color: '#648680' },
-    { url: `image/ranked/Emblem_Gold.png`, color: '#BD811A' },
-    { url: `image/ranked/Emblem_Silver.png`, color: '#999999' },
-    { url: `image/ranked/Emblem_Bronze.png`, color: '#9C5E38' },
-].map(img => {
+    { url: `image/ranked/Emblem_Platinum.png`, color: "#648680" },
+    { url: `image/ranked/Emblem_Gold.png`, color: "#BD811A" },
+    { url: `image/ranked/Emblem_Silver.png`, color: "#999999" },
+    { url: `image/ranked/Emblem_Bronze.png`, color: "#9C5E38" },
+].map((img) => {
     const image = new Image();
     image.src = img.url;
     return { image, color: img.color, url: img.url };
 });
 
 onMounted(() => {
-    const chartContainer: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById('myChart');
+    const chartContainer: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("myChart");
+    const testObject = {
+        mytest2: "bar",
+        mytest: "foo",
+    };
     const plugin = {
-        id: 'custom_canvas_background_image',
+        id: "custom_canvas_background_image",
         legend: { display: false },
         beforeDraw: (chart: any) => {
             if (yAxis.every((img) => img.image.complete)) {
                 yAxis.forEach((yAxis, index, arr) => {
-                    const ctx = chart.ctx;
+                    const { ctx } = chart;
 
                     const { width, height } = chart.chartArea;
                     const barHeight = height / arr.length;
@@ -94,25 +95,23 @@ onMounted(() => {
 
                     // draw devision lines
                     ctx.font = "14px Roboto";
-                    ctx.strokeStyle = '#999'
+                    ctx.strokeStyle = "#999";
 
-                    ctx.fillText("I", x1 + widthOffset - 10, y1 + .25 * barHeight);
-                    ctx.fillText("II", x1 + widthOffset - 10, y1 + .5 * barHeight);
-                    ctx.fillText("III", x1 + widthOffset - 10, y1 + .75 * barHeight);
+                    ctx.fillText("I", x1 + widthOffset - 10, y1 + 0.25 * barHeight);
+                    ctx.fillText("II", x1 + widthOffset - 10, y1 + 0.5 * barHeight);
+                    ctx.fillText("III", x1 + widthOffset - 10, y1 + 0.75 * barHeight);
                     if (index !== 3) {
                         ctx.fillText("IV", x1 + widthOffset - 10, y1 + barHeight);
                     }
                     ctx.beginPath();
-                    ctx.moveTo(x1 + widthOffset + 10, y1 + .25 * barHeight);
-                    ctx.lineTo(width + widthOffset + 10, y1 + .25 * barHeight);
+                    ctx.moveTo(x1 + widthOffset + 10, y1 + 0.25 * barHeight);
+                    ctx.lineTo(width + widthOffset + 10, y1 + 0.25 * barHeight);
 
+                    ctx.moveTo(x1 + widthOffset + 10, y1 + 0.5 * barHeight);
+                    ctx.lineTo(width + widthOffset + 10, y1 + 0.5 * barHeight);
 
-                    ctx.moveTo(x1 + widthOffset + 10, y1 + .5 * barHeight);
-                    ctx.lineTo(width + widthOffset + 10, y1 + .5 * barHeight);
-
-
-                    ctx.moveTo(x1 + widthOffset + 10, y1 + .75 * barHeight);
-                    ctx.lineTo(width + widthOffset + 10, y1 + .75 * barHeight);
+                    ctx.moveTo(x1 + widthOffset + 10, y1 + 0.75 * barHeight);
+                    ctx.lineTo(width + widthOffset + 10, y1 + 0.75 * barHeight);
 
                     ctx.moveTo(x1 + widthOffset + 10, y1 + barHeight);
                     ctx.lineTo(width + widthOffset + 10, y1 + barHeight);
@@ -121,28 +120,28 @@ onMounted(() => {
                     // draw emblems
                     ctx.drawImage(yAxis.image, x1 + 5, y1, height / arr.length, height / arr.length);
                     ctx.restore();
-                })
+                });
             }
-        }
+        },
     };
     if (chartContainer) {
         const myChart = new Chart(chartContainer as HTMLCanvasElement, {
-            type: 'line',
+            type: "line",
             data: graphData(),
             options: {
                 plugins: {
                     legend: {
                         display: true,
-                        position: 'bottom'
+                        position: "bottom",
                     },
                     tooltip: {
                         callbacks: {
-                            label: function (context: any) {
-                                console.log(context)
+                            label(context: any) {
+                                console.log(context);
                                 return context?.raw?.tooltip;
-                            }
-                        }
-                    }
+                            },
+                        },
+                    },
                 },
                 scales: {
                     y: {
@@ -156,31 +155,31 @@ onMounted(() => {
                         ticks: {
                             stepSize: 400,
                         },
-                        grace: 0
+                        grace: 0,
                     },
                     x: {
                         display: true,
-                        type: 'time',
+                        type: "time",
                         time: {
-                            unit: 'day',
+                            unit: "day",
                         },
                         grid: {
-                            display: true
+                            display: true,
                         },
                         min: 1641772800000, // Monday, 10. January 2022 00:00:00
-                    }
+                    },
                 },
                 layout: {
                     padding: {
                         left: 60,
-                    }
+                    },
                 },
                 maintainAspectRatio: false,
             },
             plugins: [plugin],
         });
     }
-})
+});
 </script>
 
 <template>

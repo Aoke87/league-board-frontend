@@ -3,10 +3,10 @@
 const props = defineProps<{
     headline: string,
     games: any[]
-}>()
+}>();
 
 function getLeagueEmblem(leagueId: string) {
-    return `image/ranked/Emblem_${leagueId.charAt(0) + leagueId.slice(1).toLowerCase()}.png`
+    return `image/ranked/Emblem_${leagueId.charAt(0) + leagueId.slice(1).toLowerCase()}.png`;
 }
 
 </script>
@@ -18,19 +18,15 @@ function getLeagueEmblem(leagueId: string) {
         <table class="w-full table-fixed text-left">
             <thead>
                 <tr>
-                    <th class="w-5 px-1">#</th>
                     <th>League</th>
                     <th>Points</th>
-                    <th class="max-w-[200px]">Name</th>
+                    <th class="w-[100px]">Name</th>
                     <th>Win/Loss</th>
-                    <th class>%</th>
+                    <th class="text-right">%</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody v-show="games.length > 0">
                 <tr v-for="(leagueEntry, index) in games" :key="index">
-                    <td class="px-1">
-                        <span>{{ index + 1 }}</span>
-                    </td>
                     <td class="flex items-center">
                         <img
                             :src="getLeagueEmblem(leagueEntry.tier)"
@@ -41,18 +37,58 @@ function getLeagueEmblem(leagueId: string) {
                     </td>
                     <td>{{ leagueEntry.leaguePoints }}</td>
                     <td
-                        class="text-left text-ellipsis overflow-hidden"
+                        class="text-left text-ellipsis overflow-hidden whitespace-nowrap"
                     >{{ leagueEntry.summonerName }}</td>
-                    <td>
+                    <td class="whitespace-nowrap">
                         <span>{{ leagueEntry.wins }}</span>
                         /
                         <span>{{ leagueEntry.losses }}</span>
                     </td>
-                    <td>
-                        <span>{{ Number(leagueEntry.wins / (leagueEntry.wins + leagueEntry.losses) * 100).toFixed(1) }}%</span>
+                    <td class="whitespace-nowrap text-right">
+                        <span>
+                            {{ Number(leagueEntry.wins / (leagueEntry.wins + leagueEntry.losses) * 100).toFixed(1) }}%
+                        </span>
                     </td>
+                </tr>
+            </tbody>
+            <tbody v-show="!games.length" class="skeletonTableBody">
+                <tr class="" v-for="fakeData in 10">
+                    <td class="skeleton"></td>
+                    <td class="skeleton"></td>
+                    <td class="skeleton"></td>
+                    <td class="skeleton"></td>
+                    <td class="skeleton"></td>
                 </tr>
             </tbody>
         </table>
     </div>
 </template>
+
+<style lang="scss">
+    table {
+        border-spacing: 10px 10px;
+        border-collapse: separate;
+        td {
+            height: 25px;
+        }
+    }
+    .skeleton-text {
+        width: 100%;
+        height: 0.7rem;
+        margin-bottom: 0.5rem;
+        border-radius: 0.25rem;
+    }
+    .skeleton {
+        border-radius: 5px;
+        animation: skeleton-loading 1s linear infinite alternate;
+    }
+
+    @keyframes skeleton-loading {
+        0% {
+            background-color: hsl(200, 20%, 80%);
+        }
+        100% {
+            background-color: hsl(200, 20%, 95%);
+        }
+    }
+</style>

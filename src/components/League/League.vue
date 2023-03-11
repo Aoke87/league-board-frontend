@@ -1,74 +1,75 @@
 <script setup lang="ts">
 
-import { ref } from "vue";
+import {
+    computed, Ref, ref, watch,
+} from "vue";
 import { SummonerDto, SummonerLeagueDto } from "../../interfaces/summoner.dto";
 import { NavigationData } from "../Match/MatchList.vue";
 import LeagueTable from "./Table.vue";
 import SubNavigation from "../SubNavigation.vue";
-
+import { store } from "../../store";
 
 const enum SEASONDATA {
-    CURRENT_ID = 'Current Season',
-    LAST_ID = '2021',
+    CURRENT_ID = "Current Season",
+    LAST_ID = "2022",
 }
-const props = defineProps<{
-    summoners: SummonerDto[],
-}>()
-
+const summoners = computed(() => store.getters.getSummoners);
 const activeSeason = ref(SEASONDATA.CURRENT_ID);
 
-const soloQueue: SummonerLeagueDto[] = [];
-const soloQueue2021: SummonerLeagueDto[] = [];
-const flexQueue: SummonerLeagueDto[] = [];
-const flexQueue2021: SummonerLeagueDto[] = [];
+const soloQueue: Ref<SummonerLeagueDto[]> = ref([]);
+const soloQueue2021: Ref<SummonerLeagueDto[]> = ref([]);
+const flexQueue: Ref<SummonerLeagueDto[]> = ref([]);
+const flexQueue2021: Ref<SummonerLeagueDto[]> = ref([]);
 const rankProjection: { [key: string]: number } = {
-    'I': 1,
-    'II': 2,
-    'III': 3,
-    'IV': 4
+    I: 1,
+    II: 2,
+    III: 3,
+    IV: 4,
 };
 const tierProjection: { [key: string]: number } = {
-    'CHALLENGER': 1,
-    'GRANDMASTER': 2,
-    'MASTER': 3,
-    'DIAMOND': 4,
-    'PLATINUM': 5,
-    'GOLD': 6,
-    'SILVER': 7,
-    'BRONZE': 8,
-    'IRON': 9,
+    CHALLENGER: 1,
+    GRANDMASTER: 2,
+    MASTER: 3,
+    DIAMOND: 4,
+    PLATINUM: 5,
+    GOLD: 6,
+    SILVER: 7,
+    BRONZE: 8,
+    IRON: 9,
 };
 
 const navData: NavigationData[] = [
     { title: SEASONDATA.CURRENT_ID, disabled: false },
     { title: SEASONDATA.LAST_ID, disabled: false },
-]
+];
 
-props.summoners.forEach(summoner => {
-    summoner.leagues.forEach(league => {
-        if (league.queueType === 'RANKED_SOLO_5x5') {
-            soloQueue.push(league)
-        }
-        if (league.queueType === 'RANKED_FLEX_SR') {
-            flexQueue.push(league)
-        }
-    })
-    summoner.leagues2021.forEach(league => {
-        if (league.queueType === 'RANKED_SOLO_5x5') {
-            soloQueue2021.push(league)
-        }
-        if (league.queueType === 'RANKED_FLEX_SR') {
-            flexQueue2021.push(league)
-        }
-    })
-    soloQueue.sort(compareRanks)
-    flexQueue.sort(compareRanks)
-    soloQueue2021.sort(compareRanks)
-    flexQueue2021.sort(compareRanks)
+watch(summoners, (summoners) => {
+    summoners.forEach((summoner) => {
+        summoner.leagues.forEach((league) => {
+            if (league.queueType === "RANKED_SOLO_5x5") {
+                soloQueue.value.push(league);
+            }
+            if (league.queueType === "RANKED_FLEX_SR") {
+                flexQueue.value.push(league);
+            }
+        });
+        summoner.leagues2021.forEach((league) => {
+            if (league.queueType === "RANKED_SOLO_5x5") {
+                soloQueue2021.value.push(league);
+            }
+            if (league.queueType === "RANKED_FLEX_SR") {
+                flexQueue2021.value.push(league);
+            }
+        });
+        soloQueue.value.sort(compareRanks);
+        flexQueue.value.sort(compareRanks);
+        soloQueue2021.value.sort(compareRanks);
+        flexQueue2021.value.sort(compareRanks);
+    });
 });
 
 function compareRanks(a: SummonerLeagueDto, b: SummonerLeagueDto): number {
-    if (a.tier === b.tier && a.rank == b.rank) {
+    if (a.tier === b.tier && a.rank === b.rank) {
         return a.leaguePoints < b.leaguePoints ? 1 : -1;
     }
     if (a.tier === b.tier) {

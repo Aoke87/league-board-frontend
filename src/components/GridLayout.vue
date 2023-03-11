@@ -1,14 +1,12 @@
 <script setup lang="ts">
 
-import MatchList from './Match/MatchList.vue'
+import { computed } from "vue";
+import MatchList from "./Match/MatchList.vue";
 import League from "./League/League.vue";
-import { store } from '../store';
-import { computed } from 'vue';
-import LeagueGraph from './League/LeagueGraph.vue';
+import { store } from "../store";
+import LeagueGraph from "./League/LeagueGraph.vue";
 
-const summoners = computed(() => {
-    return store.getters.getSummoners;
-})
+const summoners = computed(() => store.getters.getSummoners);
 </script>
 
 <template>
@@ -16,7 +14,7 @@ const summoners = computed(() => {
         <div class="flex flex-row flex-wrap pt-4 md:pt-2">
             <aside class="w-full sm:w-1/3 md:w-1/3 xl:w-1/3 px-2 mb-2 sm:mb-0">
                 <div class="sticky top-0 w-full shadow-md">
-                    <League v-if="summoners.length > 0" :summoners="summoners"></League>
+                    <League></League>
                     <LeagueGraph v-if="summoners.length > 0" :summoners="summoners"></LeagueGraph>
                 </div>
             </aside>

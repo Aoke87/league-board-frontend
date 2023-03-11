@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import GridLayout from './components/GridLayout.vue';
+import GridLayout from "./components/GridLayout.vue";
 import AppHeader from "./components/AppHeader.vue";
-import AppFooter from './components/AppFooter.vue';
+import AppFooter from "./components/AppFooter.vue";
 </script>
 
 <template>
@@ -20,4 +20,3 @@ import AppFooter from './components/AppFooter.vue';
     background-color: #e2e1e0;
 }
 </style>
-                                   

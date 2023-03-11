@@ -1,4 +1,3 @@
-
 export interface MatchDto {
     metadata: MetadataDto
     info: InfoDto
@@ -218,9 +217,9 @@ export interface ObjectiveDto {
     kills: number
 }
 
-export type Description = 'primaryStyle' | 'subStyle'
+export type Description = "primaryStyle" | "subStyle"
 
 // TODO: Revisit the possible values once https://github.com/RiotGames/developer-relations/issues/541 is fixed
-export type Position = '' | 'Invalid' | 'TOP' | 'JUNGLE' | 'MIDDLE' | 'BOTTOM' | 'UTILITY'
-export type Role = 'SOLO' | 'NONE' | 'CARRY' | 'SUPPORT'
-export type Lane = 'TOP' | 'JUNGLE' | 'MIDDLE' | 'BOTTOM'
+export type Position = "" | "Invalid" | "TOP" | "JUNGLE" | "MIDDLE" | "BOTTOM" | "UTILITY"
+export type Role = "SOLO" | "NONE" | "CARRY" | "SUPPORT"
+export type Lane = "TOP" | "JUNGLE" | "MIDDLE" | "BOTTOM"

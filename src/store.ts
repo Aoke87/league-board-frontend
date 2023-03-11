@@ -1,5 +1,5 @@
-import { createStore } from 'vuex';
-import './index.css'
+import { createStore } from "vuex";
+import "./index.css";
 
 export const store = createStore({
     state() {
@@ -12,41 +12,30 @@ export const store = createStore({
             summoners: [],
             isMobile: false,
             items: {},
-            backendUrl: 'http://localhost:3030/',
+            backendUrl: "http://localhost:3030/",
             version: null,
-        }
+        };
     },
     getters: {
-        getChampion: (state: any) => (championName: string) => {
-            return state.champions[championName];
-        },
-        getVersion: (state: any) => {
-            return state.version;
-        },
-        getSummoners: (state: any) => {
-            return state.summoners;
-        },
-        getIsMobile: (state: any) => {
-            return state.isMobile;
-        },
-        getInitialMatches: (state: any) => {
-            return state.initialMatches;
-        },
+        getChampion: (state: any) => (championName: string) => state.champions[championName],
+        getVersion: (state: any) => state.version,
+        getSummoners: (state: any) => state.summoners,
+        getIsMobile: (state: any) => state.isMobile,
+        getInitialMatches: (state: any) => state.initialMatches,
         getMatchesByPage: (state: any) => (page: number) => {
             if (Object.prototype.hasOwnProperty.call(state.matchPages, page)) {
                 return state.matchPages[page];
-            } else {
-                return [];
             }
+            return [];
         },
-        getIsAssetLoadingComplete: (state: any) => {
-            return state.isAssetLoadingComplete;
-        },
+        getIsAssetLoadingComplete: (state: any) => state.isAssetLoadingComplete,
         getItem: (state: any) => (itemId: number) => {
-            if (itemId === 0 || itemId === null) { return }
+            if (itemId === 0 || itemId === null) {
+                return;
+            }
             for (const item in state.items) {
                 if (item === itemId.toString()) {
-                    return state.items[item]
+                    return state.items[item];
                 }
             }
             return state.items;
@@ -58,7 +47,7 @@ export const store = createStore({
                 }
             }
             return false;
-        }
+        },
     },
     mutations: {
         setChampions: (state: any, champions: any) => {
@@ -71,18 +60,18 @@ export const store = createStore({
             state.summoners = summoners;
         },
         setSummonerSpells: (state: any, summonerSpells: any) => {
-            state.summonerSpells = summonerSpells
+            state.summonerSpells = summonerSpells;
         },
         setInitialMatches: (state: any, initialMatches: any) => {
-            state.initialMatches = initialMatches
+            state.initialMatches = initialMatches;
         },
         setMatchesByPage: (state: any, matchPageEntry: { page: number, matches: any[] }) => {
-            const newMatchesByPage = { ...state.matchPages }
+            const newMatchesByPage = { ...state.matchPages };
             newMatchesByPage[matchPageEntry.page] = matchPageEntry.matches;
             state.matchPages = newMatchesByPage;
         },
         setItems: (state: any, items: any) => {
-            state.items = items
+            state.items = items;
         },
         setIsAssetLoadingComplete: (state: any, payload: boolean) => {
             state.isAssetLoadingComplete = payload;
@@ -92,6 +81,6 @@ export const store = createStore({
         },
         setIsMobile: (state: any, payload: boolean) => {
             state.isMobile = payload;
-        }
-    }
-})
+        },
+    },
+});

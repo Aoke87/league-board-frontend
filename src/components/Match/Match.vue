@@ -1,16 +1,16 @@
 <script setup lang="ts">
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import { computed } from "vue";
 import { MatchDto, ParticipantDto } from "../../interfaces/matchV5.dto";
 import { store } from "../../store";
-import dayjs from 'dayjs'
-import 'dayjs/locale/de';
-import relativeTime from 'dayjs/plugin/relativeTime';
+import "dayjs/locale/de";
 import MatchStats from "./MatchStats.vue";
 import MatchSummoner from "./MatchSummoner.vue";
 import MatchKda from "./MatchKda.vue";
 import MatchPlayerResult from "./MatchPlayerResult.vue";
 import MatchItems from "./MatchItems.vue";
 import MatchParticipants from "./MatchParticipants.vue";
-import { computed } from "vue";
 
 // const relativeTimeOptions = {
 //     // future: 'in %s',
@@ -28,9 +28,9 @@ import { computed } from "vue";
 //     // yy: '%d years',
 // };
 
-dayjs.extend(relativeTime)
+dayjs.extend(relativeTime);
 // dayjs.extend(updateLocale)
-dayjs.locale('de')
+dayjs.locale("de");
 // dayjs.updateLocale('de', { relativeTime: relativeTimeOptions })
 
 const isMobile = computed(() => store.getters.getIsMobile);
@@ -40,8 +40,7 @@ const props = defineProps<{
     match: MatchDto
     isNewSummonerBlock: boolean,
     friendInMatch: ParticipantDto[],
-}>()
-
+}>();
 
 function isPlayerMatchResultWin(): boolean {
     return props.friendInMatch[0]?.win;
@@ -49,36 +48,36 @@ function isPlayerMatchResultWin(): boolean {
 
 function colorizeBackground() {
     const isWin = props.friendInMatch[0]?.win;
-    if (isWin) { return { 'background-color': '#a3cfec', 'border-color': '#99b9cf' }; }
-    if (!isWin) { return { 'background-color': '#e2b6b3', 'border-color': '#CEA7A6' }; }
+    if (isWin) { return { "background-color": "#a3cfec", "border-color": "#99b9cf" }; }
+    if (!isWin) { return { "background-color": "#e2b6b3", "border-color": "#CEA7A6" }; }
 }
 
 function secondsToTime(seconds: number) {
-    const m = Math.floor(seconds % 3600 / 60).toString().padStart(2, '0');
-    const s = Math.floor(seconds % 60).toString().padStart(2, '0');
+    const m = Math.floor(seconds % 3600 / 60).toString().padStart(2, "0");
+    const s = Math.floor(seconds % 60).toString().padStart(2, "0");
 
-    return m + 'm ' + s + 's';
+    return `${m}m ${s}s`;
 }
 
 function translateQueueId(queueId: number) {
     switch (queueId) {
-        case 420:
-            return 'Solo Rangliste';
-        case 440:
-            return 'Flex Rangliste';
-        default:
-            return 'Aram';
+    case 420:
+        return "Solo Rangliste";
+    case 440:
+        return "Flex Rangliste";
+    default:
+        return "Aram";
     }
 }
 
 function getSummonerSpells() {
     if (props.friendInMatch.length === 0) { return []; }
     return [props.friendInMatch[0].summoner1Id, props.friendInMatch[0].summoner2Id]
-        .map(id => store.getters.getSummonerSpell(id).image);
+        .map((id) => store.getters.getSummonerSpell(id).image);
 }
 
 function getChampionName() {
-    return store.getters.getChampion(props.friendInMatch[0]?.championName)
+    return store.getters.getChampion(props.friendInMatch[0]?.championName);
 }
 
 function getTimeStamp() {
@@ -87,7 +86,7 @@ function getTimeStamp() {
 }
 
 function translatePlayerKdaValue() {
-    return +((props.friendInMatch[0]?.kills + props.friendInMatch[0]?.assists) / props.friendInMatch[0]?.deaths).toFixed(1) + ' KDA';
+    return `${+((props.friendInMatch[0]?.kills + props.friendInMatch[0]?.assists) / props.friendInMatch[0]?.deaths).toFixed(1)} KDA`;
 }
 
 function translatePlayerStats() {
@@ -120,9 +119,9 @@ function itemIds(): Array<number | null> {
         props.friendInMatch[0]?.item3 ?? null,
         props.friendInMatch[0]?.item4 ?? null,
         props.friendInMatch[0]?.item5 ?? null,
-        props.friendInMatch[0]?.item6 ?? null
-    ]
-    return itemIds.map(itemId => store.getters.getItem(itemId));
+        props.friendInMatch[0]?.item6 ?? null,
+    ];
+    return itemIds.map((itemId) => store.getters.getItem(itemId));
 }
 
 function getTeams(): Array<ParticipantDto[]> {
@@ -140,12 +139,12 @@ function getTeams(): Array<ParticipantDto[]> {
 
 function getZindex(index: number) {
     return {
-        'zIndex': 5 - index
-    }
+        zIndex: 5 - index,
+    };
 }
 
 function getImageSource(profileIcon: number) {
-    return `http://ddragon.leagueoflegends.com/cdn/${currentVersion.value}/img/profileicon/${profileIcon}.png`
+    return `http://ddragon.leagueoflegends.com/cdn/${currentVersion.value}/img/profileicon/${profileIcon}.png`;
 }
 </script>
 

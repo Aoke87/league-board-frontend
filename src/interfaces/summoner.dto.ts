@@ -1,4 +1,3 @@
-
 export interface SummonerDto {
     "id": string,
     "accountId": string,
