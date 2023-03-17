@@ -12,8 +12,5 @@ export default defineConfig({
     },
     build: {
         outDir: "/Users/buchholzp/Documents/project/private/league-board-backend/client",
-        rollupOptions: {
-            plugins: [analyze()],
-        },
     },
 });
