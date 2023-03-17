@@ -3,6 +3,7 @@
 import { Chart, registerables } from "chart.js";
 import "chartjs-adapter-moment";
 import { onMounted } from "vue";
+import dayjs from "dayjs";
 import { RankDto, SummonerDto } from "../../interfaces/summoner.dto";
 
 Chart.register(...registerables);
@@ -29,16 +30,21 @@ export interface DataSet {
     backgroundColor?: string,
     borderColor?: string,
     data: { x: number, y: number, tooltip: string }[]
+    hidden: boolean,
 }
 
 const graphData = () => {
     const dataSets: DataSet[] = [];
     props.summoners.forEach((sum, index) => {
+        const latestGame = sum.ranking.soloQueueRanks[0];
+        const offset = 60 * 60 * 24 * 7 * 1000;
+
         const dataSet: DataSet = {
             label: sum.name,
             data: [],
             backgroundColor: colors[index] || "black",
             borderColor: colors[index] || "black",
+            hidden: ((new Date().getTime()) - latestGame.timestamp * 1000 > offset),
         };
         if (sum.ranking.soloQueueRanks.length < 7) return;
         sum.ranking.soloQueueRanks.sort((a, b) => (a.timestamp > b.timestamp ? 1 : -1));
@@ -57,10 +63,10 @@ const graphData = () => {
 };
 
 const yAxis = [
-    { url: `image/ranked/Emblem_Platinum.png`, color: "#648680" },
-    { url: `image/ranked/Emblem_Gold.png`, color: "#BD811A" },
-    { url: `image/ranked/Emblem_Silver.png`, color: "#999999" },
-    { url: `image/ranked/Emblem_Bronze.png`, color: "#9C5E38" },
+    { url: `image/ranked/Emblem_Platinum.webp`, color: "#648680" },
+    { url: `image/ranked/Emblem_Gold.webp`, color: "#BD811A" },
+    { url: `image/ranked/Emblem_Silver.webp`, color: "#999999" },
+    { url: `image/ranked/Emblem_Bronze.webp`, color: "#9C5E38" },
 ].map((img) => {
     const image = new Image();
     image.src = img.url;

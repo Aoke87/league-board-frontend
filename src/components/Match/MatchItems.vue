@@ -3,7 +3,7 @@
 const props = defineProps<{
     items: any[],
     isMobile?: boolean,
-}>()
+}>();
 
 function itemStyles(image: {
     full: string,
@@ -14,14 +14,14 @@ function itemStyles(image: {
     w: number,
     h: number,
 }) {
-    const modifier = .45;
+    const modifier = 0.45;
     const backgroundOriginalWidth = 480;
-    if (!image) { return { width: '100%', height: '100%' } }
+    if (!image) { return { width: "100%", height: "100%" }; }
     return {
-        width: '100%',
-        height: '100%',
+        width: "100%",
+        height: "100%",
         background: `url(sprite/small_${image.sprite}) -${image.x * modifier}px -${image.y * modifier}px`,
-        'background-size': `${backgroundOriginalWidth * modifier}px`,
+        "background-size": `${backgroundOriginalWidth * modifier}px`,
     };
 }
 </script>

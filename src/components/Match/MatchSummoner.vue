@@ -1,5 +1,4 @@
-<script setup lang="ts">import { isMobile } from '../../services/utilsService';
-
+<script setup lang="ts">
 
 const props = defineProps<{
     champion: any,
@@ -13,7 +12,7 @@ const props = defineProps<{
         h: number,
     }>,
     isMobile?: boolean;
-}>()
+}>();
 
 function championStyle(image: {
     full: string,
@@ -24,14 +23,14 @@ function championStyle(image: {
     w: number,
     h: number,
 }) {
-    if (!image) { return }
-    const modifier = props.isMobile ? .8 : 1;
+    if (!image) { return; }
+    const modifier = props.isMobile ? 0.8 : 1;
     const backgroundOriginalWidth = 480;
     return {
-        width: (image.w * modifier) + 'px',
-        height: (image.h * modifier) + 'px',
+        width: `${image.w * modifier}px`,
+        height: `${image.h * modifier}px`,
         background: `url(sprite/${image.sprite}) -${image.x * modifier}px -${image.y * modifier}px`,
-        'background-size': `${backgroundOriginalWidth * modifier}px`,
+        "background-size": `${backgroundOriginalWidth * modifier}px`,
     };
 }
 
@@ -44,13 +43,13 @@ function summonerSpellStyles(image: {
     w: number,
     h: number,
 }) {
-    const modifier = props.isMobile ? .4 : .5;
+    const modifier = props.isMobile ? 0.4 : 0.5;
     const backgroundOriginalWidth = 480;
     return {
-        width: (image.w * modifier) + 'px',
-        height: (image.h * modifier) + 'px',
+        width: `${image.w * modifier}px`,
+        height: `${image.h * modifier}px`,
         background: `url(sprite/spell0.png) -${image.x * modifier}px -${image.y * modifier}px`,
-        'background-size': `${backgroundOriginalWidth * modifier}px`,
+        "background-size": `${backgroundOriginalWidth * modifier}px`,
     };
 }
 
