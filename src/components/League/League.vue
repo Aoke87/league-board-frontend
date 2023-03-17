@@ -44,8 +44,8 @@ const navData: NavigationData[] = [
 ];
 
 watch(summoners, (summoners) => {
-    summoners.forEach((summoner) => {
-        summoner.leagues.forEach((league) => {
+    summoners.forEach((summoner: any) => {
+        summoner.leagues.forEach((league: any) => {
             if (league.queueType === "RANKED_SOLO_5x5") {
                 soloQueue.value.push(league);
             }
@@ -53,7 +53,7 @@ watch(summoners, (summoners) => {
                 flexQueue.value.push(league);
             }
         });
-        summoner.leagues2021.forEach((league) => {
+        summoner.leagues2021.forEach((league: any) => {
             if (league.queueType === "RANKED_SOLO_5x5") {
                 soloQueue2021.value.push(league);
             }
