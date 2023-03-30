@@ -45,17 +45,21 @@ const graphData = () => {
             backgroundColor: colors[index] || "black",
             borderColor: colors[index] || "black",
             hidden: ((new Date().getTime()) - latestGame.timestamp * 1000 > offset),
+            pointRadius: 3,
         };
         if (sum.ranking.soloQueueRanks.length < 7) return;
-        sum.ranking.soloQueueRanks.sort((a, b) => (a.timestamp > b.timestamp ? 1 : -1));
-        sum.ranking.soloQueueRanks.forEach((rank: RankDto) => {
-            dataSet.data.push({
-                x: rank.timestamp * 1000,
-                y: rank.rating,
-                tooltip: `${rank.tier} ${rank.rank} ${rank.points}`,
+        sum.ranking.soloQueueRanks
+            .filter((rank: RankDto) => (rank.timestamp) > 1672531200)
+            .sort((a, b) => (a.timestamp > b.timestamp ? 1 : -1))
+            .forEach((rank: RankDto) => {
+                dataSet.data.push({
+                    x: rank.timestamp * 1000,
+                    y: rank.rating,
+                    tooltip: `${rank.tier} ${rank.rank} ${rank.points}`,
+                });
             });
-        });
         dataSets.push(dataSet);
+        console.log(dataSet);
     });
     return {
         datasets: dataSets,
@@ -63,6 +67,7 @@ const graphData = () => {
 };
 
 const yAxis = [
+    { url: `image/ranked/Emblem_Diamond.webp`, color: "rgba(84,52,166,0.58)" },
     { url: `image/ranked/Emblem_Platinum.webp`, color: "#648680" },
     { url: `image/ranked/Emblem_Gold.webp`, color: "#BD811A" },
     { url: `image/ranked/Emblem_Silver.webp`, color: "#999999" },
@@ -143,7 +148,6 @@ onMounted(() => {
                     tooltip: {
                         callbacks: {
                             label(context: any) {
-                                console.log(context);
                                 return context?.raw?.tooltip;
                             },
                         },
@@ -157,7 +161,7 @@ onMounted(() => {
                         },
                         beginAtZero: false,
                         min: 400,
-                        max: 2000,
+                        max: 2400,
                         ticks: {
                             stepSize: 400,
                         },
@@ -172,7 +176,7 @@ onMounted(() => {
                         grid: {
                             display: true,
                         },
-                        min: 1641772800000, // Monday, 10. January 2022 00:00:00
+                        min: 1672531200000, // Monday, 10. January 2022 00:00:00
                     },
                 },
                 layout: {
