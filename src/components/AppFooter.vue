@@ -122,29 +122,5 @@
                 </div>
             </div>
         </div>
-        <div class="py-16 flex flex-col justify-center items-center">
-            <a
-                class="focus:outline-none"
-                tabindex="0"
-                role="link"
-                aria-label="home link"
-                href="javascript:void(0)"
-            >
-                <img
-                    class="dark:hidden"
-                    src="https://tuk-cdn.s3.amazonaws.com/can-uploader/footer_1-svg7.svg"
-                    alt="tuk logo"
-                />
-                <img
-                    class="dark:block hidden"
-                    src="https://tuk-cdn.s3.amazonaws.com/can-uploader/footer_1-svg7dark.svg"
-                    alt="tuk logo"
-                />
-            </a>
-            <p
-                tabindex="0"
-                class="focus:outline-none mt-6 text-xs lg:text-sm leading-none text-gray-900 dark:text-gray-50"
-            >2021 Tailwind UI Kit. All Rights Reserved.</p>
-        </div>
     </footer>
 </template>

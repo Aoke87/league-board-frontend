@@ -7,7 +7,7 @@ import AppFooter from "./components/AppFooter.vue";
 <template>
     <AppHeader class="top"></AppHeader>
     <GridLayout />
-    <AppFooter />
+<!--    <AppFooter />-->
 </template>
 
 <style>

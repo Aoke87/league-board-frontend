@@ -146,31 +146,33 @@ function getZindex(index: number) {
 function getImageSource(profileIcon: number) {
     return `http://ddragon.leagueoflegends.com/cdn/${currentVersion.value}/img/profileicon/${profileIcon}.png`;
 }
+
 </script>
 
 <template>
-    <div v-if="isNewSummonerBlock" class="text-base flex items-center">
+    <div v-if="isNewSummonerBlock" class="text-base flex items-top mb-2">
         <template v-if="friendInMatch.length === 1">
             <img
-                class="rounded-full leading-none w-6 h-6 mr-1"
+                class="leading-none w-7 h-7 mr-2"
+                style="border-radius: 5px"
                 :src="getImageSource(friendInMatch[0].profileIcon)"
             />
-            <div class="mb-2">
+            <div class="" style="line-height: 10px;">
                 <span class="leading-none">{{ friendInMatch[0].summonerName }}</span>
                 <span
                     class="text-xs leading-none line block text-gray-500"
                 >Level {{ friendInMatch[0].summonerLevel }}</span>
             </div>
         </template>
-        <div v-if="friendInMatch.length > 1" class="flex items-center mb-2">
+        <div v-if="friendInMatch.length > 1" class="flex items-center">
             <img
                 v-for="(friend, index) in friendInMatch"
                 :key="index"
-                :class="{ '-ml-3': index !== 0 }"
-                class="rounded-full leading-none w-6 h-6 z-10"
+                :class="{ '-ml-2': index !== 0 }"
+                class="leading-none w-7 h-7 z-10 border-2"
                 :src="getImageSource(friend.profileIcon)"
                 :style="[
-                    getZindex(index)
+                    getZindex(index),
                 ]"
             />
             <div class="ml-1">

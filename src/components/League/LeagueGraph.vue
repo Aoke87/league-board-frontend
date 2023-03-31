@@ -59,7 +59,6 @@ const graphData = () => {
                 });
             });
         dataSets.push(dataSet);
-        console.log(dataSet);
     });
     return {
         datasets: dataSets,
@@ -193,10 +192,10 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="bg-white p-2 mt-4">
+    <div class="bg-white p-3 mt-4">
         <span class="leading-none">Rankings 2022</span>
         <span class="text-xs leading-none line block text-gray-500 mb-2">Solo Queue</span>
-        <div class="h-80">
+        <div style="height: 400px">
             <canvas id="myChart"></canvas>
         </div>
     </div>

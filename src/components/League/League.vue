@@ -40,7 +40,6 @@ const tierProjection: { [key: string]: number } = {
 
 const navData: NavigationData[] = [
     { title: SEASONDATA.CURRENT_ID, disabled: false },
-    { title: SEASONDATA.LAST_ID, disabled: false },
 ];
 
 watch(summoners, (summoners) => {
@@ -85,15 +84,10 @@ function activate(value: SEASONDATA) {
 </script>
 
 <template>
-    <div class="bg-white p-2">
-        <SubNavigation :nav-data="navData" @active="activate"></SubNavigation>
-        <template v-if="activeSeason === SEASONDATA.LAST_ID">
-            <LeagueTable :headline="'Solo Queue'" :games="soloQueue2021"></LeagueTable>
-            <LeagueTable :headline="'Flex Queue'" :games="flexQueue2021"></LeagueTable>
-        </template>
+    <div class="bg-white p-3">
+<!--        <SubNavigation :nav-data="navData" @active="activate"></SubNavigation>-->
         <template v-if="activeSeason === SEASONDATA.CURRENT_ID">
             <LeagueTable :headline="'Solo Queue'" :games="soloQueue"></LeagueTable>
-            <LeagueTable :headline="'Flex Queue'" :games="flexQueue"></LeagueTable>
         </template>
     </div>
 </template>

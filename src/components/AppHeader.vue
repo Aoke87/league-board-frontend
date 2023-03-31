@@ -1,8 +1,8 @@
 <script setup lang="ts">
 
-import { ref } from 'vue'
+import { ref } from "vue";
 
-const isMobileMenuOpen = ref(false)
+const isMobileMenuOpen = ref(false);
 
 </script>
 
@@ -92,17 +92,7 @@ const isMobileMenuOpen = ref(false)
                                 href="#"
                                 class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
                                 aria-current="page"
-                            >Latest games</a>
-
-                            <a
-                                href="#"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium cursor-not-allowed"
-                            >Statistics</a>
-
-                            <a
-                                href="#"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium cursor-not-allowed"
-                            >Champions</a>
+                            >Season 2023</a>
                         </div>
                     </div>
                 </div>

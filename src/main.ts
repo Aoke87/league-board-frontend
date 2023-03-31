@@ -2,8 +2,8 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import "./index.css";
 import { store } from "./store";
-import items from "../public/data/de_DE/item.json";
-import champions from "../public/data/de_DE/champion.json";
+import items from "../public/data/de_DE/item_small.json";
+import champions from "../public/data/de_DE/champion_small.json";
 import summoner from "../public/data/de_DE/summoner.json";
 import { isMobile } from "./services/utilsService";
 
