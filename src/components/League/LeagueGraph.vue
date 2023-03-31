@@ -44,8 +44,8 @@ const graphData = () => {
             data: [],
             backgroundColor: colors[index] || "black",
             borderColor: colors[index] || "black",
-            hidden: ((new Date().getTime()) - latestGame.timestamp * 1000 > offset),
-            pointRadius: 3,
+            hidden: latestGame && ((new Date().getTime()) - latestGame.timestamp * 1000 > offset),
+            pointRadius: 2,
         };
         if (sum.ranking.soloQueueRanks.length < 7) return;
         sum.ranking.soloQueueRanks
