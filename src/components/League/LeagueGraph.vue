@@ -172,7 +172,7 @@ onMounted(() => {
                         grid: {
                             display: true,
                         },
-                        min: 1672531200000, // Monday, 10. January 2022 00:00:00
+                        min: 1688169600000, // Monday, 10. January 2022 00:00:00
                     },
                 },
                 layout: {

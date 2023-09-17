@@ -6,7 +6,7 @@ const props = defineProps<{
 }>();
 
 function getLeagueEmblem(leagueId: string) {
-    return `image/ranked/${leagueId.charAt(0) + leagueId.slice(1).toLowerCase()}.webp`;
+    return `image/ranked/${leagueId.toLowerCase()}.webp`;
 }
 
 </script>
