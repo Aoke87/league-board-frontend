@@ -12,26 +12,8 @@ import MatchPlayerResult from "./MatchPlayerResult.vue";
 import MatchItems from "./MatchItems.vue";
 import MatchParticipants from "./MatchParticipants.vue";
 
-// const relativeTimeOptions = {
-//     // future: 'in %s',
-//     // past: '%s ago',
-//     // s: 'a few seconds',
-//     // m: 'a minute',
-//     // mm: '%d minutes',
-//     // h: 'an hour',
-//     // hh: '%d hours',
-//     // d: 'a day',
-//     dd: 'vor %d Tagen',
-//     // M: 'a month',
-//     // MM: '%d months',
-//     // y: 'a year',
-//     // yy: '%d years',
-// };
-
 dayjs.extend(relativeTime);
-// dayjs.extend(updateLocale)
 dayjs.locale("de");
-// dayjs.updateLocale('de', { relativeTime: relativeTimeOptions })
 
 const isMobile = computed(() => store.getters.getIsMobile);
 const currentVersion = computed(() => store.getters.getVersion);
@@ -48,8 +30,9 @@ function isPlayerMatchResultWin(): boolean {
 
 function colorizeBackground() {
     const isWin = props.friendInMatch[0]?.win;
-    if (isWin) { return { "background-color": "#a3cfec", "border-color": "#99b9cf" }; }
-    if (!isWin) { return { "background-color": "#e2b6b3", "border-color": "#CEA7A6" }; }
+    if (isWin) {
+        return { "background-color": "#a3cfec", "border-color": "#99b9cf" };
+    } return { "background-color": "#e2b6b3", "border-color": "#CEA7A6" };
 }
 
 function secondsToTime(seconds: number) {

@@ -16,8 +16,7 @@ Get version from:
 
 Download assets from: 
 `https://ddragon.leagueoflegends.com/cdn/dragontail-{VERSION}.tgz`
-e.g. `https://ddragon.leagueoflegends.com/cdn/dragontail-12.4.1.tgz`
-
+e.g. `https://ddragon.leagueoflegends.com/cdn/dragontail-13.18.1.tgz`
 
 Unzip Files
 Go to folder /{VERSION}/data/de_DE
@@ -29,3 +28,4 @@ Copy
 
 Go to folder /{VERSION}/img/sprite/ to public/sprite
 
+Execute the script reduceJsonFileSizes.js to reduce the size of the json files

@@ -6,7 +6,7 @@ const props = defineProps<{
 }>();
 
 function getLeagueEmblem(leagueId: string) {
-    return `image/ranked/Emblem_${leagueId.charAt(0) + leagueId.slice(1).toLowerCase()}.webp`;
+    return `image/ranked/${leagueId.charAt(0) + leagueId.slice(1).toLowerCase()}.webp`;
 }
 
 </script>
@@ -18,7 +18,7 @@ function getLeagueEmblem(leagueId: string) {
         <table class="w-full table-fixed text-left">
             <thead>
                 <tr>
-                    <th>League</th>
+                    <th class="text-left">League</th>
                     <th>Points</th>
                     <th class="w-[100px]">Name</th>
                     <th>Win/Loss</th>
@@ -30,12 +30,12 @@ function getLeagueEmblem(leagueId: string) {
                     <td class="flex items-center">
                         <img
                             :src="getLeagueEmblem(leagueEntry.tier)"
-                            class="w-7 h-7"
+                            class="w-11 h-11"
                             :alt="leagueEntry.tier"
                         />
                         <span class="ml-2">{{ leagueEntry.rank }}</span>
                     </td>
-                    <td>{{ leagueEntry.leaguePoints }}</td>
+                    <td class="text-center">{{ leagueEntry.leaguePoints }}</td>
                     <td
                         class="text-left text-ellipsis overflow-hidden whitespace-nowrap"
                     >{{ leagueEntry.summonerName }}</td>

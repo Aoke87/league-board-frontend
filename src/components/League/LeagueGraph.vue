@@ -66,11 +66,12 @@ const graphData = () => {
 };
 
 const yAxis = [
-    { url: `image/ranked/Emblem_Diamond.webp`, color: "rgba(84,52,166,0.58)" },
-    { url: `image/ranked/Emblem_Platinum.webp`, color: "#648680" },
-    { url: `image/ranked/Emblem_Gold.webp`, color: "#BD811A" },
-    { url: `image/ranked/Emblem_Silver.webp`, color: "#999999" },
-    { url: `image/ranked/Emblem_Bronze.webp`, color: "#9C5E38" },
+    { url: `image/ranked/diamond.webp`, color: "#4665B5" },
+    { url: `image/ranked/emerald.webp`, color: "#067066" },
+    { url: `image/ranked/platinum.webp`, color: "#3F857E" },
+    { url: `image/ranked/gold.webp`, color: "#BD811A" },
+    { url: `image/ranked/silver.webp`, color: "#999999" },
+    { url: `image/ranked/bronze.webp`, color: "#9C5E38" },
 ].map((img) => {
     const image = new Image();
     image.src = img.url;
@@ -79,10 +80,6 @@ const yAxis = [
 
 onMounted(() => {
     const chartContainer: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("myChart");
-    const testObject = {
-        mytest2: "bar",
-        mytest: "foo",
-    };
     const plugin = {
         id: "custom_canvas_background_image",
         legend: { display: false },
@@ -98,9 +95,9 @@ onMounted(() => {
                     const widthOffset = 70;
 
                     // draw backgrounds
-                    ctx.globalAlpha = 0.6;
+                    ctx.globalAlpha = 0.5;
                     ctx.fillStyle = yAxis.color;
-                    ctx.fillRect(x1, y1, width + widthOffset, barHeight);
+                    ctx.fillRect(x1, y1, width + widthOffset + 10, barHeight);
                     ctx.globalAlpha = 1;
 
                     // draw devision lines
@@ -160,7 +157,7 @@ onMounted(() => {
                         },
                         beginAtZero: false,
                         min: 400,
-                        max: 2400,
+                        max: 2800,
                         ticks: {
                             stepSize: 400,
                         },
@@ -170,7 +167,7 @@ onMounted(() => {
                         display: true,
                         type: "time",
                         time: {
-                            unit: "day",
+                            unit: "week",
                         },
                         grid: {
                             display: true,
@@ -195,7 +192,7 @@ onMounted(() => {
     <div class="bg-white p-3 mt-4">
         <span class="leading-none">Rankings 2022</span>
         <span class="text-xs leading-none line block text-gray-500 mb-2">Solo Queue</span>
-        <div style="height: 400px">
+        <div style="height: 500px">
             <canvas id="myChart"></canvas>
         </div>
     </div>

@@ -3,15 +3,13 @@
 import {
     computed, Ref, ref, watch,
 } from "vue";
-import { SummonerDto, SummonerLeagueDto } from "../../interfaces/summoner.dto";
+import { SummonerLeagueDto } from "../../interfaces/summoner.dto";
 import { NavigationData } from "../Match/MatchList.vue";
 import LeagueTable from "./Table.vue";
-import SubNavigation from "../SubNavigation.vue";
 import { store } from "../../store";
 
 const enum SEASONDATA {
     CURRENT_ID = "Current Season",
-    LAST_ID = "2022",
 }
 const summoners = computed(() => store.getters.getSummoners);
 const activeSeason = ref(SEASONDATA.CURRENT_ID);
@@ -31,16 +29,13 @@ const tierProjection: { [key: string]: number } = {
     GRANDMASTER: 2,
     MASTER: 3,
     DIAMOND: 4,
-    PLATINUM: 5,
-    GOLD: 6,
-    SILVER: 7,
-    BRONZE: 8,
-    IRON: 9,
+    EMERALD: 5,
+    PLATINUM: 6,
+    GOLD: 7,
+    SILVER: 8,
+    BRONZE: 9,
+    IRON: 10,
 };
-
-const navData: NavigationData[] = [
-    { title: SEASONDATA.CURRENT_ID, disabled: false },
-];
 
 watch(summoners, (summoners) => {
     summoners.forEach((summoner: any) => {
@@ -85,7 +80,6 @@ function activate(value: SEASONDATA) {
 
 <template>
     <div class="bg-white p-3">
-<!--        <SubNavigation :nav-data="navData" @active="activate"></SubNavigation>-->
         <template v-if="activeSeason === SEASONDATA.CURRENT_ID">
             <LeagueTable :headline="'Solo Queue'" :games="soloQueue"></LeagueTable>
         </template>
